@@ -1,0 +1,178 @@
+<!--
+FIRE REST
+https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices
+
+http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters
+https://fsapps.nwcg.gov/afm/wms.php?sensor=modis&extent=alaska
+
+MORE FIRE WEB SERVICEW
+
+prod
+
+https://cdn.rawgit.com/benmatheson/fire/81413213/exportJSON.JSON
+
+dev
+https://rawgit.com/benmatheson/fire/master/exportJSON.JSON
+
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+    <title>FIREA</title>
+
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
+
+    <script src="leaflet-providers.js"></script>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+
+
+	<style type="text/css">
+
+	
+   	#map1 {
+   		height: 400px;
+   		max-width: 400px;
+   		padding: 10px 10px 50px	50px;
+   		border:1px solid black;
+	display: block;
+	margin: auto;
+	margin-bottom: 50px;
+   	}
+   	 	#map2 {
+   		height: 400px;
+   		max-width: 400px;
+   		padding: 10px 10px 50px	50px;
+   		border:1px solid black;
+   		display: block;
+   		margin: auto;
+	margin-bottom: 50px;
+
+   	}
+
+   	#map3{
+height: 400px;
+   		max-width: 400px;
+   		padding: 10px 10px 50px	50px;
+   		border:1px solid black;
+   			display: block;
+margin: auto;
+	margin-bottom: 50px;
+
+   	}
+
+   	#map4{
+height: 400px;
+   		max-width: 400px;
+   		padding: 10px 10px 50px	50px;
+   		border:1px solid black;
+	display: block;
+	margin: auto;
+		margin-bottom: 50px;
+
+   	}
+   	</style>
+</head>
+<body>
+
+<div id='stats'>this is stats</div>
+
+<div>
+<div id='map1'></div>
+
+<div id='map2'></div>
+
+<div id='map3'></div>
+
+<div id='map4'></div>
+</div>
+<script type="text/javascript">
+
+// RT90 with map's pixel origin at RT90 coordinate (0, 0)
+
+var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
+$.getJSON(urlJSON, function(data){
+  document.getElementById('stats').innerHTML = JSON.stringify(data);  
+});
+
+
+var map1 = L.map('map1').setView([64.1781, -149.9003], 3);
+var map2 = L.map('map2').setView([64.1781, -149.9003], 3);
+
+var map3 = L.map('map3').setView([64.1781, -149.9003], 3);
+var map4 = L.map('map4').setView([64.1781, -149.9003], 3);
+
+L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map1);
+
+L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map2);
+L.tileLayer.provider('OpenTopoMap').addTo(map3);
+L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map4);
+
+
+var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
+var modis = "https://modis.arcgis.com/arcgis/rest/services/MODIS/ImageServer";
+var blue = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var blueCross ="https://crossorigin.me/https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var modisCross = "http://crossorigin.me/http://modis.arcgis.com/arcgis/rest/services/MODIS/ImageServer";
+var url2 = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Temperature/ImageServer";
+
+
+
+
+
+var active = L.esri.featureLayer({
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/0/"
+     }).addTo(map1);
+
+var points = L.esri.featureLayer({
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/"
+     }).addTo(map2);
+
+var lightening = L.esri.featureLayer({
+	url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/"
+}).addto(map3);
+
+//this works for the blue thing
+//var images = L.esri.imageMapLayer({
+//	url: url2,
+  //opacity: 0.25,
+  //useCors: false
+
+//}).addTo(map1);	
+
+//THESE NASA ONES DONT WROK
+
+
+//var points = L.esri.featureLayer({
+      //  url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/"
+    //  }).addTo(map1);
+
+
+
+</script>
+
+</body>
+
+
+
+
+</html>

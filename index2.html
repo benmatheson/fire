@@ -1,0 +1,134 @@
+<!--
+FIRE REST
+https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices
+
+http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters
+SITREPT stuf
+
+https://fire.ak.blm.gov/predsvcs/intel.php
+https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+    <title>FIREA</title>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+
+
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+
+    <script src="leaflet-providers.js"></script>
+
+
+
+	<style type="text/css">
+
+   	#map1 {
+   		height: 600px;
+   		padding: 10px 10px 50px	50px;
+   		border:1px solid black;
+    }
+
+   	</style>
+</head>
+<body>
+
+<div id='map1'></div>
+
+<script type="text/javascript">
+
+
+var map1 = L.map('map1').setView([64.1781, -149.9003], 3);
+
+
+L.tileLayer.provider('NASAGIBS.ModisTerraTrueColorCR').addTo(map1);
+
+
+
+
+//L.tileLayer('http://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_CorrectedReflectance_TrueColor/{z}/{y}/{x}').addTo(map1);
+
+
+//https://modis.arcgis.com/arcgis/rest/services/MODIS/ImageServer/tile/{z}/{y}/{x}
+
+
+
+
+
+
+
+var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
+
+
+
+
+var modis = "https://modis.arcgis.com/arcgis/rest/services/MODIS/ImageServer";
+var blue = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var blueCross ="https://crossorigin.me/https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var modisCross = "http://crossorigin.me/http://modis.arcgis.com/arcgis/rest/services/MODIS/ImageServer";
+
+var url2 = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/MODIS/ImageServer";
+var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Temperature/ImageServer";
+
+//var images = L.esri.imageMapLayer({
+//  url: url2,
+//  opacity: 0.25,
+//  useCors: false
+
+//}).addTo(map1); 
+
+
+//L.esri.imageMapLayer({
+ // url: alaskabase
+//}).addTo(map1);
+
+var active = L.esri.featureLayer({
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/0/"
+     }).addTo(map1);
+
+
+//this works for the blue thing
+
+
+
+
+
+
+
+
+
+//THESE NASA ONES DONT WROK 
+
+
+
+
+//var points = L.esri.featureLayer({
+      //  url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/"
+    //  }).addTo(map1);
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+
+
+
+</html>

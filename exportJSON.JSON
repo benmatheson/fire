@@ -1,1 +1,8 @@
-{"lightningFiresNumber":18,"humanFiresNumber":134,"totalAcerage":14013.5,"totalCost":761100}
+[
+  {
+    "lightningFiresNumber": 42,
+    "humanFiresNumber": 140,
+    "totalAcerage": 53269.1,
+    "totalCost": 1502116
+  }
+]
