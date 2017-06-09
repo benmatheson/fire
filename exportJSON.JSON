@@ -1,8 +1,13 @@
 [
   {
+    "systemTime": "2017-06-08 22:06:10",
     "lightningFiresNumber": 42,
     "humanFiresNumber": 140,
     "totalAcerage": 53269.1,
-    "totalCost": 1502116
+    "totalCost": 1502116,
+    "mostExpensiveNumber": 576413,
+    "largestFireNumber": 9018,
+    "mostExpensiveName": "Bell Creek",
+    "largestfireName": "Little Yetna River"
   }
 ]

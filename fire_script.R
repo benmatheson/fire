@@ -33,32 +33,33 @@ humanFiresNumber <- count(humanFires)
 lightningFires <- filter(fires, GENERALCAUSE=="Lightning")
 lightningFiresNumber <- count(lightningFires)
 
-
-
 #Most expensive current fires
   
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
 mostExpensive <- mostExpensive[1:10,]
+mostExpensiveNumber <- mostExpensive[1,18]
+mostExpensiveName <- mostExpensive[1,2]
+
 
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
-largestFires
-
-# View(mostExpensive)
-# fireSummary <- toJSON
-# write(exportJson, file="fire_summary.JSON")
+largestFireNumber <- largestFires[1,11]
+largestfireName <- largestFires[1,2]
 
 
 totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 
+sysTime <- paste0(Sys.time()) 
+sysTime 
 
-col <- c("lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost")
-row <- c(lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost)
+#Bring summary data into dataframe, export to JSON
 
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName")
 
+export
 
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
@@ -70,17 +71,16 @@ push_git <- paste0("git add --all && git commit -m '",
 
 system(push_git)
 
+
+
+
+#run from command line Rscript fire_script.R
+
+
 # push_git <- paste0("cd fire && git add --all && git commit -m '", 
 #                    as.character(Sys.time()), 
 #                    "' && git push origin master")
 
-#Sys.getenv('R_HOME')
-
-#data to export:
-
-
-# list of top five biggets
-# list of top five most epensive
 # 
 # There are currently __ firest burning in Alaska. A total of __acres have burned, ___% from human caused fires, % from lightening caused fires. 
 # 
@@ -89,12 +89,6 @@ system(push_git)
 # ____limited
 # ___modified
 
-
-
-#current_date <- date()
-
-#create summary stuatistics
-  
 
 
 
