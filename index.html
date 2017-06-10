@@ -52,7 +52,7 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
 font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
-	color: #474747;
+	color: #000000;
   padding: 0% 25% 0% 25%;
 margin:auto;
   animation: fadeIn 1.0s ease forwards;
@@ -70,7 +70,7 @@ margin:auto;
     font-weight: black;
     font-weight: 400;
     font-size: 1.5em;
-    font-color: black;
+    font-color: #000000;
     text-decoration: underline;
   }
 
@@ -146,7 +146,7 @@ height: 400px;
 	<div class="inline">
 There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. 
 
-The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span id="largestFireNumber"></span> acres. In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
+The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br>In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
 
 The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
 <br>
@@ -212,16 +212,16 @@ var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
 $.getJSON(urlJSON, function(data){
   var parsedData = data;
   	console.log(parsedData);  
-	document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage;
-	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber;
-	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber;
-	document.getElementById('totalCost').innerHTML = parsedData[0].totalCost;
-	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber;
-	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber;
+	document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('totalCost').innerHTML = parsedData[0].totalCost.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
 	document.getElementById('mostExpensiveName').innerHTML = parsedData[0].mostExpensiveName;
 	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
   document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
-  document.getElementById('currentCount').innerHTML = parsedData[0].currentCount;
+  document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 2 });
 
 });
 
