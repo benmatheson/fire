@@ -2,47 +2,77 @@
 <html>
   <head>
 	<meta charset="UTF-8">
-    <title>Alaska Fire 2017</title>
+    <title>Test Projection</title>
 
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   
+
+   <style type="text/css">
+
+   
+   	#map {
+   		height: 400px;
+   		max-width: 80%px;
+   		padding: 10px 10px 50px	50px;
+	display: block;
+	margin: auto;
+	margin-bottom: 50px;
+   	}
+   </style>
+
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
    integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
    crossorigin=""/>
-
-   <style>
-
-   #map1{
- 
-   	height: 80%;
-
-   }
-   </style>
 
  </head>
 <body>
 	
- <div id='map1'>test</div>
+ <div id='map'></div>
 
 	
- <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
- <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
 
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
+ 
+<!--  <script src="https://unpkg.com/esri-leaflet@2.0.8"></script> -->
 
 
 <script type="text/javascript">
-var map1 = L.map('map1').setView([64.1781, -149.9003], 4);	
+
+   var crs = new L.Proj.CRS('EPSG:3006',
+  '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+  {
+    resolutions: [
+      8192, 4096, 2048, 1024, 512, 256, 128
+    ],
+    origin: [0, 0]
+  })  
+
+
+
+var map = new L.Map('map', {
+    crs: crs
+  });
+
+L.tileLayer('http://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
+  maxZoom: crs.options.resolutions.length,
+  minZoom: 0,
+  continuousWorld: true,
+  attribution: 'Map data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, Imagery © <a href="http://www.kartena.se/">Kartena</a>'
+}).addTo(map);
+
 //L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map1);
 
-var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
+//var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
 
-var images = L.esri.imageMapLayer({
-	url: alaskabase,
-  opacity: 0.25,
-  useCors: false
+//var images = L.esri.imageMapLayer({
+	//url: alaskabase,
+  //opacity: 0.9,
+ // useCors: false,
 
-}).addTo(map1);	
+//}).addTo(map1);	
 </script>
 
 </body>

@@ -74,7 +74,7 @@ push_git <- paste0("git add --all && git commit -m '",
 
 system(push_git)
 
-
+download.file("https://rawgit.com/benmatheson/fire/master/exportJSON.JSON", "local_download.json")
 
 # /usr/local/bin/Rscript
 #run from command line Rscript fire_script.R
