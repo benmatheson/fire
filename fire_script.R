@@ -36,7 +36,8 @@ humanFiresNumber <- count(humanFires)
 lightningFires <- filter(fires, GENERALCAUSE=="Lightning")
 lightningFiresNumber <- count(lightningFires)
 
-totalFires <- humanFiresNumber+lightningFiresNumber
+totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
+
 
 #Most expensive current fires
   
@@ -56,26 +57,33 @@ totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 
 sysTime <- paste0(Sys.time()) 
-sysTime 
+ 
 
 #removes the fires that don't have both cost and size
 sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
 
-costArray <- sizeCost$ESTIMATEDTOTALCOST
+costArray <-sizeCost$ESTIMATEDTOTALCOST
+costArray <- toJSON(costArray)
+
 sizeArray <- sizeCost$ESTIMATEDTOTALACRES
-nameArray <- sizeCost$NAME
+sizeArray <-toJSON(sizeArray)
+
+nameArray <- as.character(sizeCost$NAME)
+nameArray <- toJSON(nameArray)
+
+
 discoverArray <- sizeCost$DISCOVERYDATETIME
+discoverArray <- toJSON(discoverArray)
 
 #Bring summary data into dataframe, export to JSON
 
+#, sizeArray, nameArray, discoverArray, totalFiresc)
 row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires)
 export <- data.frame(row, stringsAsFactors=FALSE)
 names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires")
-
-export
-
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
+
 
 
 push_git <- paste0("git add --all && git commit -m '", 
