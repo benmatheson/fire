@@ -1,14 +1,14 @@
 [
   {
-    "systemTime": "2017-06-09 22:00:02",
-    "lightningFiresNumber": 51,
-    "humanFiresNumber": 143,
-    "totalAcerage": 85960.3,
-    "totalCost": 1508350,
-    "mostExpensiveNumber": 576413,
-    "largestFireNumber": 12315,
+    "systemTime": "2017-06-10 10:02:45",
+    "lightningFiresNumber": 52,
+    "humanFiresNumber": 144,
+    "totalAcerage": 112488.2,
+    "totalCost": 1953814,
+    "mostExpensiveNumber": 731570,
+    "largestFireNumber": 16746,
     "mostExpensiveName": "Bell Creek",
-    "largestfireName": "Little Yetna River",
-    "currentCount": 69
+    "largestfireName": "Pitka Fork",
+    "currentCount": 70
   }
 ]

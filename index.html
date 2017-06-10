@@ -86,7 +86,7 @@ h1{
 
 font-family: 'Roboto', sans-serif;
 font-weight: 900;
-font-size: 4em;
+font-size: 5em;
 margin:auto;
 text-align: center;
 }
@@ -228,6 +228,7 @@ $.getJSON(urlJSON, function(data){
 
 
 
+
 var map1 = L.map('map1').setView([64.1781, -149.9003], 4);
 var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 
@@ -252,6 +253,7 @@ var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Te
 
 
 
+
 //var geojsonLayer = L.GeoJSON.AJAX("https://rawgit.com/benmatheson/fire/master/fires.geojson").addTo('map4');
 
 var active = L.esri.featureLayer({
@@ -259,7 +261,8 @@ var active = L.esri.featureLayer({
      }).addTo(map1);
 
 var points = L.esri.featureLayer({
-   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/"
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
+   style: {color: 'red'}
      }).addTo(map2);
 
 var lightning = L.esri.featureLayer({
