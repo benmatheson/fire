@@ -9,9 +9,9 @@ library(jsonlite)
 #https://github.com/OpenGov/Leaflet.bubble
 #how to make geojson
 #https://recology.info/2015/04/geojson-io/
+#crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
 
-#wd <- "fire"
-#setwd("fire")
+
 
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
 fires <- read_xlsx("query.xlsx")
@@ -25,6 +25,9 @@ writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
 #this checks to see if there is an OUTDATE on the fire
 fires$burning <- is.na(fires$OUTDATE)
 currentFires <- filter(fires, burning==TRUE)
+currentCount <- nrow(currentFires)
+
+
 outFires <- filter(fires, burning==FALSE)
 
 humanFires <- filter(fires, GENERALCAUSE=="Human")
@@ -55,9 +58,9 @@ sysTime
 
 #Bring summary data into dataframe, export to JSON
 
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount")
 
 export
 
@@ -73,7 +76,7 @@ system(push_git)
 
 
 
-
+# /usr/local/bin/Rscript
 #run from command line Rscript fire_script.R
 
 

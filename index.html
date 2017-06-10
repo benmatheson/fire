@@ -27,13 +27,13 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 <html>
   <head>
 	<meta charset="UTF-8">
-    <title>FIREA</title>
+    <title>Alaska Fire 2017</title>
 
 
    
 
 
-
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Roboto:300,700i,900,900i" rel="stylesheet">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
@@ -43,21 +43,76 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
 	<style type="text/css">
 
-	
+	body {
+		background-color: ##f7f7f7;
+
+	}
+
+	.inline {
+
+font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	color: #474747;
+  padding: 0% 25% 0% 25%;
+margin:auto;
+  animation: fadeIn 1.0s ease forwards;
+
+@keyframes fadeIn
+  to { 
+     opacity: 1; }
+
+
+
+	}
+
+  .inlineEmph {
+
+    font-weight: black;
+    font-weight: 400;
+    font-size: 1.5em;
+    font-color: black;
+    text-decoration: underline;
+  }
+
+	.disclaimer {
+		font-family: 
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-style: italic;
+	padding: 0% 25% 0% 25%	;
+	}
+
+h1{
+
+font-family: 'Roboto', sans-serif;
+font-weight: 900;
+font-size: 4em;
+margin:auto;
+text-align: center;
+}
+
+	#maps {
+
+font-family: 'Roboto', sans-serif;
+font-weight: 900;
+font-size: 3em;
+margin:auto;
+text-align: center;
+
+	}
+
    	#map1 {
    		height: 400px;
-   		max-width: 400px;
+   		max-width: 80%px;
    		padding: 10px 10px 50px	50px;
-   		border:1px solid black;
 	display: block;
 	margin: auto;
 	margin-bottom: 50px;
    	}
    	 	#map2 {
    		height: 400px;
-   		max-width: 400px;
+   		max-width: 90%;
    		padding: 10px 10px 50px	50px;
-   		border:1px solid black;
    		display: block;
    		margin: auto;
 	margin-bottom: 50px;
@@ -66,9 +121,8 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
    	#map3{
 height: 400px;
-   		max-width: 400px;
+   		max-width: 80%px;
    		padding: 10px 10px 50px	50px;
-   		border:1px solid black;
    			display: block;
 margin: auto;
 	margin-bottom: 50px;
@@ -77,10 +131,9 @@ margin: auto;
 
    	#map4{
 height: 400px;
-   		max-width: 400px;
+   		max-width: 700px;
    		padding: 10px 10px 50px	50px;
-   		border:1px solid black;
-	display: block;
+=	display: block;
 	margin: auto;
 		margin-bottom: 50px;
 
@@ -89,16 +142,41 @@ height: 400px;
 </head>
 <body>
 
-<div id='stats'>this is stats2</div>
+<h1> Alaska Fire Update 2017</h1>
+	<div class="inline">
+There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. 
 
-<div>
+The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span id="largestFireNumber"></span> acres. In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
+
+The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
+<br>
+
+This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
+
+
+In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.
+This is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>,
+	<div> 
+
+
+
+	<div id='stats'></div> <div>
+	<p class = "disclaimer">  </p>
+
+<div id= "maps">
+Current Perimeters
 <div id='map1'></div>
-
+Current Fire Locations
 <div id='map2'></div>
-
+Recent Lighnting Detected 
 <div id='map3'></div>
-
+Recent Heat Detected by MODIS Satellite
 <div id='map4'></div>
+</div>
+
+<div class = "xxr">
+	Discliamer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
+
 </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
@@ -106,7 +184,7 @@ height: 400px;
 
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
   <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
-  <script src="https://cdn.rawgit.com/OpenGov/Leaflet.bubble/gh-pages/dist/leaflet-bubble.js>"></script>
+  <!--<script src="https://cdn.rawgit.com/OpenGov/Leaflet.bubble/gh-pages/dist/leaflet-bubble.js>"></script> -->
   
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
@@ -125,13 +203,32 @@ height: 400px;
 
 // RT90 with map's pixel origin at RT90 coordinate (0, 0)
 
+//var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
+//$.getJSON(urlJSON, function(data){
+ // document.getElementById('stats').innerHTML = JSON.stringify(data);  
+//});
+
 var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
 $.getJSON(urlJSON, function(data){
-  document.getElementById('stats').innerHTML = JSON.stringify(data);  
+  var parsedData = data;
+  	console.log(parsedData);  
+	document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage;
+	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber;
+	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber;
+	document.getElementById('totalCost').innerHTML = parsedData[0].totalCost;
+	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber;
+	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber;
+	document.getElementById('mostExpensiveName').innerHTML = parsedData[0].mostExpensiveName;
+	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
+  document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
+  document.getElementById('currentCount').innerHTML = parsedData[0].currentCount;
+
 });
 
 
-var map1 = L.map('map1').setView([64.1781, -149.9003], 5);
+
+
+var map1 = L.map('map1').setView([64.1781, -149.9003], 4);
 var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 
 var map3 = L.map('map3').setView([64.1781, -149.9003], 8);
@@ -158,7 +255,7 @@ var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Te
 //var geojsonLayer = L.GeoJSON.AJAX("https://rawgit.com/benmatheson/fire/master/fires.geojson").addTo('map4');
 
 var active = L.esri.featureLayer({
-   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/0/"
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/"
      }).addTo(map1);
 
 var points = L.esri.featureLayer({
