@@ -36,6 +36,8 @@ humanFiresNumber <- count(humanFires)
 lightningFires <- filter(fires, GENERALCAUSE=="Lightning")
 lightningFiresNumber <- count(lightningFires)
 
+totalFires <- humanFiresNumber+lightningFiresNumber
+
 #Most expensive current fires
   
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
@@ -56,11 +58,19 @@ totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 sysTime <- paste0(Sys.time()) 
 sysTime 
 
+#removes the fires that don't have both cost and size
+sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
+
+costArray <- sizeCost$ESTIMATEDTOTALCOST
+sizeArray <- sizeCost$ESTIMATEDTOTALACRES
+nameArray <- sizeCost$NAME
+discoverArray <- sizeCost$DISCOVERYDATETIME
+
 #Bring summary data into dataframe, export to JSON
 
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires")
 
 export
 

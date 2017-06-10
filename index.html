@@ -52,9 +52,10 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	color: #000000;
-  padding: 0% 25% 0% 25%;
+  padding: 0% 20% 0% 20%;
 margin:auto;
   animation: fadeIn 1.0s ease forwards;
+  font-size: 1.4em;
 
 @keyframes fadeIn
   to { 
@@ -78,7 +79,7 @@ margin:auto;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	font-style: italic;
-	padding: 0% 25% 0% 25%	;
+	padding: 0% 25% 0% 25%;
 	}
 
 h1{
@@ -95,6 +96,7 @@ text-align: center;
 font-family: 'Roboto', sans-serif;
 font-weight: 900;
 font-size: 3em;
+width: 90%;
 margin:auto;
 text-align: center;
 
@@ -102,7 +104,7 @@ text-align: center;
 
    	#map1 {
    		height: 400px;
-   		max-width: 90%px;
+   		max-width: 90%;
    		padding: 10px 10px 50px	50px;
 	display: block;
 	margin: auto;
@@ -120,7 +122,7 @@ text-align: center;
 
    	#map3{
 height: 400px;
-   		max-width: 80%px;
+   		width: 80%;
    		padding: 10px 10px 50px	50px;
    			display: block;
 margin: auto;
@@ -132,7 +134,7 @@ margin: auto;
 height: 400px;
    		max-width: 700px;
    		padding: 10px 10px 50px	50px;
-=	display: block;
+	display: block;
 	margin: auto;
 		margin-bottom: 50px;
 
@@ -155,25 +157,23 @@ This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> wer
 
 In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
 This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>,
-	<div> 
+	</div> 
 
-
-
-	<div id='stats'></div> <div>
+  <div>
 	<p class = "disclaimer">  </p>
 
 <div id= "maps">
 Current Perimeters
-<div id='map1'></div>
+  <div id='map1'></div>
 Current Fire Locations
-<div id='map2'></div>
+  <div id='map2'></div>
 Recent Lighnting Detected 
-<div id='map3'></div>
+  <div id='map3'></div>
 Recent Heat Detected by MODIS Satellite
-<div id='map4'></div>
+  <div id='map4'></div>
 </div>
 
-<div class = "xxr">
+<div class = "disclaimer">
 	Discliamer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
 
 </div>
