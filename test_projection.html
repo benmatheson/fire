@@ -19,21 +19,20 @@
    	}
    </style>
 
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
-   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
-   crossorigin=""/>
-
  </head>
 <body>
 	
  <div id='map'></div>
 
 	
+ <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
 
  
 <!--  <script src="https://unpkg.com/esri-leaflet@2.0.8"></script> -->
@@ -48,11 +47,11 @@
       8192, 4096, 2048, 1024, 512, 256, 128
     ],
     origin: [0, 0]
-  })  
+  });  
 
 
 
-var map = new L.Map('map', {
+var map = L.Map('map', {
     crs: crs
   });
 

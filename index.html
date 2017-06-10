@@ -30,9 +30,6 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
     <title>Alaska Fire 2017</title>
 
 
-   
-
-
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Roboto:300,700i,900,900i" rel="stylesheet">
 
 
@@ -42,6 +39,8 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
  
 
 	<style type="text/css">
+
+
 
 	body {
 		background-color: ##f7f7f7;
@@ -103,7 +102,7 @@ text-align: center;
 
    	#map1 {
    		height: 400px;
-   		max-width: 80%px;
+   		max-width: 90%px;
    		padding: 10px 10px 50px	50px;
 	display: block;
 	margin: auto;
@@ -146,16 +145,16 @@ height: 400px;
 	<div class="inline">
 There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. 
 
-The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br>In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
+The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
 
 The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
-<br>
+<br><br>
 
 This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
 
 
-In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.
-This is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>,
+In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
+This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>,
 	<div> 
 
 
@@ -229,7 +228,7 @@ $.getJSON(urlJSON, function(data){
 
 
 
-var map1 = L.map('map1').setView([64.1781, -149.9003], 4);
+var map1 = L.map('map1').setView([64.1781, -149.9003], 5);
 var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 
 var map3 = L.map('map3').setView([64.1781, -149.9003], 8);
@@ -252,17 +251,24 @@ var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Te
 
 
 
-
-
 //var geojsonLayer = L.GeoJSON.AJAX("https://rawgit.com/benmatheson/fire/master/fires.geojson").addTo('map4');
 
 var active = L.esri.featureLayer({
-   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/"
-     }).addTo(map1);
+   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/",
+   style: function (feature) {
+      if(feature.properties.ACRES < 10000){
+        return {color: 'blue', weight: .5 };
+      } else if(feature.properties.ACRES >= 10000 && feature.properties.ACRES <= 15000){
+        return { color: 'red', weight: 0.5 };
+      } else {
+        return { color: 'green', weight: 0.5 };
+      }
+    }
+    }).addTo(map1);
 
 var points = L.esri.featureLayer({
    url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
-   style: {color: 'red'}
+   iconUrl: 'https://esri.github.io/esri-leaflet/img/bus-stop-west.png'
      }).addTo(map2);
 
 var lightning = L.esri.featureLayer({
@@ -287,12 +293,7 @@ var lightning = L.esri.featureLayer({
 
 
 //this works for the blue thing
-//var images = L.esri.imageMapLayer({
-//	url: url2,
-  //opacity: 0.25,
-  //useCors: false
-
-//}).addTo(map1);	
+//  
 
 //THESE NASA ONES DONT WROK
 
