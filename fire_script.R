@@ -67,7 +67,9 @@ costArray <- toJSON(costArray)
 
 sizeArray <- sizeCost$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
+sizeArray <- gsub('"',"",sizeArray)
 
+sizeArray
 nameArray <- as.character(sizeCost$NAME)
 nameArray <- toJSON(nameArray)
 

@@ -51,11 +51,11 @@
 
 
 
-var map = L.Map('map', {
+var map = new L.Map('map', {
     crs: crs
   });
 
-L.tileLayer('http://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
+//L.tileLayer('http://api.geosition.com/tile/osm-bright-3006/{z}/{x}/{y}.png', {
   maxZoom: crs.options.resolutions.length,
   minZoom: 0,
   continuousWorld: true,

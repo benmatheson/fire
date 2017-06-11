@@ -2,6 +2,8 @@
 <head>
   <!-- Plotly.js -->
    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+
 </head>
 
 <body>
@@ -9,18 +11,46 @@
   <script>
     <!-- JAVASCRIPT CODE GOES HERE -->
 
-    var trace1 = {
-  x: [1, 2, 3, 4],
-  y: [10, 15, 13, 17],
-  mode: 'markers',
-  type: 'scatter'
-};
 
+    var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
+$.getJSON(urlJSON, function(data){
+	var parsedData = data;
+	console.log(parsedData)
 
-var data = [trace1];
+	var costs = [parsedData[0].costArray];
+	var size = [parsedData[0].sizeArray];
 
+console.log(size)
+var trace2 ={
+
+x: costs,
+y: size,
+mode: 'markers',
+type: 'scatter'
+
+}
+var data = [trace2];
 
 Plotly.newPlot('myDiv', data);
+
+});
+
+
+
+
+
+  ////  var trace1 = {
+ // x: [1, 2, 3, 4],
+  //y: [10, 15, 13, 17],
+  //mode: 'markers',
+  //type: 'scatter'/
+//};
+
+
+//var data = [trace1];
+
+
+//Plotly.newPlot('myDiv', data);
 
   </script>
 </body>
