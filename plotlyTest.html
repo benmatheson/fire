@@ -16,6 +16,10 @@
 $.getJSON(urlJSON, function(data){
 	var parsedData = data;
 	console.log(parsedData)
+	var costy = parsedData[0].costArray;
+	var costy = costy.subString(1);
+	var costy = costy.subString(-1);
+	console.log(costy);
 
 	var costs = [parsedData[0].costArray];
 	var size = [parsedData[0].sizeArray];
