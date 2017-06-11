@@ -7,35 +7,98 @@
 </head>
 
 <body>
-  <div id="myDiv" style="width: 600px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  
+<div id="paste"> </div>
+  <div id="myDiv" style="width: 600px; height: 400px;"></div>
+  <div id="dateDiv" style="width: 600px; height: 400px;"></div>
   <script>
-    <!-- JAVASCRIPT CODE GOES HERE -->
 
 
     var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
 $.getJSON(urlJSON, function(data){
 	var parsedData = data;
-	console.log(parsedData)
-	var costy = parsedData[0].costArray;
-	var costy = costy.subString(1);
-	var costy = costy.subString(-1);
-	console.log(costy);
+	var costArray = JSON.parse(parsedData[0].costArray);
+	var sizeArray = JSON.parse(parsedData[0].sizeArray);
+	var nameArray = JSON.parse(parsedData[0].nameArray);
+	var discoverArray = JSON.parse(parsedData[0].discoverArray);
+	//console.log(size);
+	//console.log (discoverArray);
+	//console.log(costy);
+	//var costy2 = costy.subString(1);
+	//var costy3 = costy2.subString(-1);
+	//console.log(costy3);
+	//var costs = [parsedData[0].costArray];
+	//var size = [parsedData[0].sizeArray];
 
-	var costs = [parsedData[0].costArray];
-	var size = [parsedData[0].sizeArray];
+var POP_TO_PX_SIZE = 9200;
 
-console.log(size)
-var trace2 ={
+	var trace1 ={
+	x: discoverArray,
+	y: sizeArray,
+	text: nameArray,
+	marker:{
+		sizeMode: "area",
+		size: costArray,
+		sizeref: POP_TO_PX_SIZE
 
-x: costs,
-y: size,
-mode: 'markers',
-type: 'scatter'
+	},
+	mode: 'markers',
+	type: 'scatter'
 
-}
-var data = [trace2];
+	};
+var datas = [trace1];
+var layout = {
+  xaxis: {
+    title: 'Discovery Date',
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 22,
+      color: 'darkgrey'
+    },
+    showticklabels: true,
+    tickangle: 0,
+    tickfont: {
+      family: 'Open-sans sans-serif',
+      size: 14,
+      color: 'black'
+    },
+  
+  },
+  yaxis: {
+    title: 'Size of Fire',
+    titlefont: {
+      family: 'Open-sans, sans-serif',
+      size: 18,
+      color: 'darkgrey'
+    },
+    showticklabels: true,
+    tickangle: 0,
+    tickfont: {
+      family: 'Old Standard TT, serif',
+      size: 14,
+      color: 'black'
+    },
+   
 
-Plotly.newPlot('myDiv', data);
+  }
+};
+
+
+console.log(trace1);
+Plotly.newPlot('myDiv', datas, layout);
+
+
+var dataDate = [
+  {
+    x: discoverArray,
+    y: sizeArray,
+    type: 'scatter'
+  }
+];
+
+
+Plotly.newPlot('dateDiv', dataDate);
+
 
 });
 
