@@ -161,7 +161,7 @@ This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> wer
 
 
 In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
-This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> 
+This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website.</a> <br>
 	</div> 
 
   <div>
@@ -182,8 +182,8 @@ Recent Heat Detected by MODIS Satellite
   <div id="myDiv" style="width: 80%; margin:auto; height: 700px;"></div>
 
 
-<div class = "disclaimer">
-	Discliamer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
+<div class = "disclaimer"><br>
+	Disclaimer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
 
 </div>
 
@@ -205,6 +205,18 @@ Recent Heat Detected by MODIS Satellite
 
 
  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+
+
+
+
+ <script src="https://rawgit.com/Leaflet/Leaflet.heat/gh-pages/dist/leaflet-heat.js"></script>
+
+<!-- Load Heatmap Feature Layer from CDN -->
+<script src="https://unpkg.com/esri-leaflet-heatmap@2.0.0"></script>
+
 
 
 <script type="text/javascript">
@@ -314,14 +326,14 @@ Plotly.newPlot('myDiv', datas, layout);
 var map1 = L.map('map1').setView([64.1781, -149.9003], 5);
 var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 
-var map3 = L.map('map3').setView([64.1781, -149.9003], 8);
-var map4 = L.map('map4').setView([64.1781, -149.9003], 4);
+var map3 = L.map('map3').setView([64.1781, -149.9003],4);
+var map4 = L.map('map4').setView([64.1781, -149.9003], 5);
 
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map1);
 
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map2);
-L.tileLayer.provider('Stamen.TerrainBackground').addTo(map3);
-L.tileLayer.provider('NASAGIBS.ModisTerraTrueColorCR').addTo(map4);
+L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map3);
+//L.tileLayer.provider('NASAGIBS.ModisTerraTrueColorCR').addTo(map4);
 
 
 var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
@@ -349,18 +361,46 @@ var active = L.esri.featureLayer({
     }
     }).addTo(map1);
 
+active.bindPopup(function (layer) {
+    return L.Util.template('<p>Fire Name: {NAME}</p>', layer.feature.properties);
+
+  });
+
+
+
 var points = L.esri.featureLayer({
    url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
    iconUrl: 'https://esri.github.io/esri-leaflet/img/bus-stop-west.png'
+
      }).addTo(map2);
 
-var lightning = L.esri.featureLayer({
-	url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/"
-}).addTo(map3);
+points.bindPopup(function (layer) {
+    return L.Util.template('<p>Fire Name: {NAME}<br>Cause: {GENERALCAUSE} <br>Size: {ESTIMATEDTOTALACRES} acres<br> Management Option: {MGMTOPTIONID}</p>', layer.feature.properties);
+  });
+
+
+//var lightning = L.esri.featureLayer({
+	//url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/"
+//}).addTo(map3);
+
+
+ L.esri.Heat.featureLayer({
+    url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
+    radius:33
+  
+  }).addTo(map3);
+
+
 
   var heat = L.esri.featureLayer({
     url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/'
   }).addTo(map4);
+
+
+L.esri.imageMapLayer({
+  url: alaskabase,
+  opacity : .9
+}).addTo(map4);
 
 //var bubbles = L.bubbleLayer(cost, { property: "ESTIMATEDCOST" })
 
@@ -369,9 +409,6 @@ var lightning = L.esri.featureLayer({
 //var lightening2 = L.esri.featureLayer({
   //url: "https://fsapps.nwcg.gov/afm/cgi-bin/mapserv.exe?map=alaska_mod14_wfs.map&/1/"
 //}).addto(map4);
-
-
-
 
 
 
@@ -386,12 +423,9 @@ var lightning = L.esri.featureLayer({
     //  }).addTo(map1);
 
 
-
 </script>
 
 </body>
-
-
 
 
 </html>
