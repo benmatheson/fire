@@ -53,8 +53,8 @@ font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	color: #000000;
   padding: 0% 20% 0% 20%;
-margin:auto;
-  animation: fadeIn 1.0s ease forwards;
+  margin:auto;
+  animation: fadeIn 4.0s ease forwards;
   font-size: 1.4em;
 
 @keyframes fadeIn
@@ -139,11 +139,16 @@ height: 400px;
 		margin-bottom: 50px;
 
    	}
+
+    #headline {
+      padding: 3% 0% 3% 0%;
+
+    }
    	</style>
 </head>
 <body>
 
-<h1> Alaska Fire Update 2017</h1>
+<h1 id="headline"> Alaska Fire Update 2017</h1>
 	<div class="inline">
 There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. 
 
@@ -156,18 +161,18 @@ This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> wer
 
 
 In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
-This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>,
+This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> 
 	</div> 
 
   <div>
 	<p class = "disclaimer">  </p>
 
 <div id= "maps">
-Current Perimeters
+Current Fire Perimeters
   <div id='map1'></div>
 Current Fire Locations
   <div id='map2'></div>
-Recent Lighnting Detected 
+Recent Lightning Detected 
   <div id='map3'></div>
 Recent Heat Detected by MODIS Satellite
   <div id='map4'></div>
@@ -216,15 +221,15 @@ $.getJSON(urlJSON, function(data){
   var parsedData = data;
   	console.log(parsedData);  
 	document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
-	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
 	document.getElementById('totalCost').innerHTML = parsedData[0].totalCost.toLocaleString(undefined,{ minimumFractionDigits: 2 });
-	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
-	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
 	document.getElementById('mostExpensiveName').innerHTML = parsedData[0].mostExpensiveName;
 	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
   document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
-  document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+  document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 0 });
 
 var costArray = JSON.parse(parsedData[0].costArray);
   var sizeArray = JSON.parse(parsedData[0].sizeArray);
