@@ -149,7 +149,7 @@ There are are currently <span class="inlineEmph" id="currentCount"></span> fires
 
 The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
 
-The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
+The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost $ <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
 <br><br>
 
 This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
@@ -173,6 +173,10 @@ Recent Heat Detected by MODIS Satellite
   <div id='map4'></div>
 </div>
 
+<h2> visualizing area, cost, and date..</h2>
+  <div id="myDiv" style="width: 80%; margin:auto; height: 700px;"></div>
+
+
 <div class = "disclaimer">
 	Discliamer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
 
@@ -195,7 +199,7 @@ Recent Heat Detected by MODIS Satellite
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
 
 
-
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 
 <script type="text/javascript">
@@ -221,6 +225,80 @@ $.getJSON(urlJSON, function(data){
 	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
   document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
   document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+
+var costArray = JSON.parse(parsedData[0].costArray);
+  var sizeArray = JSON.parse(parsedData[0].sizeArray);
+  var nameArray = JSON.parse(parsedData[0].nameArray);
+  var discoverArray = JSON.parse(parsedData[0].discoverArray);
+  
+  //console.log (discoverArray);
+  //console.log(costy);
+  //var costy2 = costy.subString(1);
+  //var costy3 = costy2.subString(-1);
+  //console.log(costy3);
+  //var costs = [parsedData[0].costArray];
+  //var size = [parsedData[0].sizeArray];
+
+var POP_TO_PX_SIZE = 9200;
+
+  var trace1 ={
+  x: discoverArray,
+  y: sizeArray,
+  text: nameArray,costArray,
+  marker:{
+    color: "red",
+    opacity: 50,
+    sizeMode: "area",
+    size: costArray,
+    sizeref: POP_TO_PX_SIZE
+
+  },
+  mode: 'markers',
+  type: 'scatter'
+
+  };
+var datas = [trace1];
+var layout = {
+  xaxis: {
+    title: 'Discovery Date',
+    size: 28,
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 26,
+      color: 'darkgrey'
+    },
+     xaxis: {range: ["2017-05-01 00:00:00", "2017-06-06 00:00:00"]},
+    showticklabels: true,
+    tickangle: 0,
+    tickfont: {
+      family: 'Open-sans sans-serif',
+      size: 25,
+      color: 'black'
+    },
+  
+  },
+  yaxis: {
+    title: 'Size of Fire',
+    size: 56,
+    titlefont: {
+      family: 'Open-sans, sans-serif',
+      size: 18,
+      color: 'darkgrey'
+    },
+    showticklabels: true,
+    tickangle: 0,
+    tickfont: {
+      family: 'Old Standard TT, serif',
+      size: 14,
+      color: 'black'
+    },
+  }
+};
+
+
+Plotly.newPlot('myDiv', datas, layout);
+
+
 
 });
 

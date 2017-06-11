@@ -67,12 +67,14 @@ costArray <- toJSON(costArray)
 
 sizeArray <- sizeCost$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
+sizeArray
 sizeArray <- gsub('"',"",sizeArray)
+sizeArray
 
 sizeArray
 nameArray <- as.character(sizeCost$NAME)
 nameArray <- toJSON(nameArray)
-
+nameArray
 
 discoverArray <- sizeCost$DISCOVERYDATETIME
 discoverArray <- toJSON(discoverArray)
