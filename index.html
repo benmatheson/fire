@@ -102,7 +102,7 @@ text-align: center;
 	}
 
    	#map1 {
-   		height: 400px;
+   		height: 500px;
    		max-width: 90%;
    		padding: 10px 10px 50px	50px;
 	display: block;
@@ -110,7 +110,7 @@ text-align: center;
 	margin-bottom: 50px;
    	}
    	 	#map2 {
-   		height: 400px;
+   		height: 500px;
    		max-width: 90%;
    		padding: 10px 10px 50px	50px;
    		display: block;
@@ -120,8 +120,8 @@ text-align: center;
    	}
 
    	#map3{
-height: 400px;
-   		width: 80%;
+height: 500px;
+   		width: 90%;
    		padding: 10px 10px 50px	50px;
    			display: block;
 margin: auto;
@@ -130,8 +130,8 @@ margin: auto;
    	}
 
    	#map4{
-height: 400px;
-   		max-width: 700px;
+height: 500px;
+   		max-width: 90%;
    		padding: 10px 10px 50px	50px;
 	display: block;
 	margin: auto;
@@ -143,15 +143,21 @@ height: 400px;
       padding: 3% 0% 3% 0%;
 
     }
+
+    .popUp {
+
+      font-size: 1.5em;
+
+    }
    	</style>
 </head>
 <body>
 
 <h1 id="headline"> Alaska Fire Update 2017</h1>
 	<div class="inline">
-There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
+There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> acres have burned.
 
-The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>
+The largest fire is  <span class="inlineEmph" id="largestfireName"></span> , burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>
 
 The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost $ <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
 <br><br>
@@ -159,7 +165,7 @@ The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></spa
 This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
 
 
-In total, fires have costed  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
+In total, fires have cost an estimated  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
 This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>. <br><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website.</a> <br>
 	</div> 
 
@@ -328,9 +334,9 @@ var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 var map3 = L.map('map3').setView([64.1781, -149.9003],4);
 var map4 = L.map('map4').setView([64.1781, -149.9003], 5);
 
-L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map1);
+L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map1);
 
-L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map2);
+L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map2);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map3);
 //L.tileLayer.provider('NASAGIBS.ModisTerraTrueColorCR').addTo(map4);
 
@@ -388,7 +394,7 @@ pointToLayer: function (geojson, latlng) {
 
 
 points.bindPopup(function (layer) {
-    return L.Util.template('<p>Fire Name: {NAME}<br>Cause: {GENERALCAUSE} <br>Size: {ESTIMATEDTOTALACRES} acres<br> Management Option: {MGMTOPTIONID}</p>', layer.feature.properties);
+    return L.Util.template('<div class="popUp"> <p><strong>Fire Name: </strong>{NAME}<br><strong>Cause:</strong> {GENERALCAUSE} <br><strong>Size:</strong> {ESTIMATEDTOTALACRES} acres<br> <strong>Management Option:</strong> {MGMTOPTIONID}<br><strong><a href="https://fire.ak.blm.gov/">More information</a></strong></p></div>', layer.feature.properties);
   });
 
 
