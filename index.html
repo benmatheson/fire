@@ -71,7 +71,6 @@ font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 1.5em;
     font-color: #000000;
-    text-decoration: underline;
   }
 
 	.disclaimer {
@@ -150,9 +149,9 @@ height: 400px;
 
 <h1 id="headline"> Alaska Fire Update 2017</h1>
 	<div class="inline">
-There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. 
+There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
 
-The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>In total, <span class="inlineEmph" id="totalAcerage"></span> have burned.
+The largest fire is  <span class="inlineEmph" id="largestfireName"></span> burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>
 
 The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost $ <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
 <br><br>
@@ -368,11 +367,25 @@ active.bindPopup(function (layer) {
 
 
 
+var testIcon = L.icon({
+      iconUrl: 'http://www.bfvwz.steiermark.at/portaldata/1/resources/_intern/img/slider/reddot.png'
+    });
+
 var points = L.esri.featureLayer({
    url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
-   iconUrl: 'https://esri.github.io/esri-leaflet/img/bus-stop-west.png'
+pointToLayer: function (geojson, latlng) {
+      return L.marker(latlng, {
+        icon: testIcon
+      });
+    },
+  }).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map2);
 
-     }).addTo(map2);
+
+
+  // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons16x16/application_delete.png'
+     //}).addTo(map2);
+
+
 
 points.bindPopup(function (layer) {
     return L.Util.template('<p>Fire Name: {NAME}<br>Cause: {GENERALCAUSE} <br>Size: {ESTIMATEDTOTALACRES} acres<br> Management Option: {MGMTOPTIONID}</p>', layer.feature.properties);
