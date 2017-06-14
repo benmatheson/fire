@@ -22,6 +22,21 @@ writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
 
 #load the CSV for history
 
+fireHistory <- download.file("https://fire.ak.blm.gov/content/aicc/Statistics%20Directory/Alaska%20Daily%20Stats%20-%202004%20to%20Present.csv", "fire_history.csv")
+fireHistory <- read.csv("fire_history.csv")
+fireHistory <- as.data.frame(fireHistory)
+
+fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >4)
+fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
+
+fireHistoryDate <- as.character(fireHistory2017$SitReportDate)
+fireHistoryDate <- toJSON(fireHistoryDate)
+fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
+fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
+fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
+fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
+
+
 ####Parse the fire Dataframe#####
 
 #remove the problematic "{}" in the 
@@ -88,7 +103,7 @@ sizeArray
 sizeArray
 nameArray <- as.character(sizeCost$NAME)
 nameArray <- toJSON(nameArray)
-nameArray
+
 
 discoverArray <- sizeCost$DISCOVERYDATETIME
 discoverArray <- toJSON(discoverArray)
@@ -96,9 +111,9 @@ discoverArray <- toJSON(discoverArray)
 #Bring summary data into dataframe, export to JSON
 
 #, sizeArray, nameArray, discoverArray, totalFiresc)
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDate, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDate", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires")
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
 
