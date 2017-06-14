@@ -10,7 +10,10 @@
   
 <div id="paste"> </div>
   <div id="myDiv" style="width: 80%; height: 700px;"></div>
+  
   <div id="dateDiv" style="width: 600px; height: 400px;"></div>
+
+    <div id="costDiv" style="width: 600px; height:400px;"></div>
   <script>
 
 
@@ -22,6 +25,44 @@ $.getJSON(urlJSON, function(data){
 	var nameArray = JSON.parse(parsedData[0].nameArray);
 	var discoverArray = JSON.parse(parsedData[0].discoverArray);
 	
+
+var data = [
+  {
+    x: sizeArray,
+    type: 'histogram',
+  marker: {
+    color: 'rgba(100,250,100,0.7)',
+  },
+  }
+];
+
+  Plotly.newPlot('myDiv', data);
+
+
+
+
+var costData = [
+{
+
+  x: costArray,
+  type: 'histogram',
+  marker: {
+    color: 'rgba(100,250,100,0.7)',
+  },
+}
+
+
+];
+
+
+  Plotly.newPlot('costDiv', costData);
+
+
+ });
+
+
+
+
 	//console.log (discoverArray);
 	//console.log(costy);
 	//var costy2 = costy.subString(1);
@@ -30,87 +71,91 @@ $.getJSON(urlJSON, function(data){
 	//var costs = [parsedData[0].costArray];
 	//var size = [parsedData[0].sizeArray];
 
-var POP_TO_PX_SIZE = 9200;
 
-	var trace1 ={
-	x: discoverArray,
-	y: sizeArray,
-	text: nameArray,costArray,
-	marker:{
-		color: "red",
-		opacity: 50,
-		sizeMode: "area",
-		size: costArray,
-		sizeref: POP_TO_PX_SIZE
 
-	},
-	mode: 'markers',
-	type: 'scatter'
 
-	};
-var datas = [trace1];
-var layout = {
-  xaxis: {
-    title: 'Discovery Date',
-    size: 28,
-    titlefont: {
-      family: 'Arial, sans-serif',
-      size: 26,
-      color: 'darkgrey'
-    },
-     xaxis: {range: ["2017-05-01 00:00:00", "2017-06-06 00:00:00"]},
-    showticklabels: true,
-    tickangle: 0,
-    tickfont: {
-      family: 'Open-sans sans-serif',
-      size: 25,
-      color: 'black'
-    },
+
+
+
+
+// var POP_TO_PX_SIZE = 9200;
+
+// 	var trace1 ={
+// 	x: discoverArray,
+// 	y: sizeArray,
+// 	text: nameArray,costArray,
+// 	marker:{
+// 		color: "red",
+// 		opacity: 50,
+// 		sizeMode: "area",
+// 		size: costArray,
+// 		sizeref: POP_TO_PX_SIZE
+
+// 	},
+// 	mode: 'markers',
+// 	type: 'scatter'
+
+// 	};
+// var datas = [trace1];
+// var layout = {
+//   xaxis: {
+//     title: 'Discovery Date',
+//     size: 28,
+//     titlefont: {
+//       family: 'Arial, sans-serif',
+//       size: 26,
+//       color: 'darkgrey'
+//     },
+//      xaxis: {range: ["2017-05-01 00:00:00", "2017-06-06 00:00:00"]},
+//     showticklabels: true,
+//     tickangle: 0,
+//     tickfont: {
+//       family: 'Open-sans sans-serif',
+//       size: 25,
+//       color: 'black'
+//     },
   
-  },
-  yaxis: {
-    title: 'Size of Fire',
-    size: 56,
-    titlefont: {
-      family: 'Open-sans, sans-serif',
-      size: 18,
-      color: 'darkgrey'
-    },
-    showticklabels: true,
-    tickangle: 0,
-    tickfont: {
-      family: 'Old Standard TT, serif',
-      size: 14,
-      color: 'black'
-    },
+//   },
+//   yaxis: {
+//     title: 'Size of Fire',
+//     size: 56,
+//     titlefont: {
+//       family: 'Open-sans, sans-serif',
+//       size: 18,
+//       color: 'darkgrey'
+//     },
+//     showticklabels: true,
+//     tickangle: 0,
+//     tickfont: {
+//       family: 'Old Standard TT, serif',
+//       size: 14,
+//       color: 'black'
+//     },
    
 
-  }
-};
-
-
-Plotly.newPlot('myDiv', datas, layout);
-
-
-});
+//   }
+// };
 
 
 
 
 
-  ////  var trace1 = {
- // x: [1, 2, 3, 4],
-  //y: [10, 15, 13, 17],
-  //mode: 'markers',
-  //type: 'scatter'/
-//};
 
 
-//var data = [trace1];
+
+//   ////  var trace1 = {
+//  // x: [1, 2, 3, 4],
+//   //y: [10, 15, 13, 17],
+//   //mode: 'markers',
+//   //type: 'scatter'/
+// //};
 
 
-//Plotly.newPlot('myDiv', data);
+// //var data = [trace1];
 
-  </script>
-</body>
-</html>
+
+// //Plotly.newPlot('myDiv', data);
+
+//   </script>
+// </body>
+// </html>

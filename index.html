@@ -338,7 +338,7 @@ L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map1);
 
 L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map2);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map3);
-//L.tileLayer.provider('NASAGIBS.ModisTerraTrueColorCR').addTo(map4);
+L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map4);
 
 
 var alaskabase = "http://forestrymaps.alaska.gov/arcgis/rest/services/Rasters/AK_SPOT_2_5m_RGB/ImageServer";
@@ -405,21 +405,36 @@ points.bindPopup(function (layer) {
 
  L.esri.Heat.featureLayer({
     url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
-    radius:33
-  
+    radius:9
+
+
   }).addTo(map3);
 
 
 
   var heat = L.esri.featureLayer({
-    url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/'
-  }).addTo(map4);
+    url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/',
+
+    pointToLayer: function (geojson, latlng) {
+      return L.marker(latlng, {
+        icon: testIcon
+      });
+    },
+  }).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map4);
 
 
-L.esri.imageMapLayer({
-  url: alaskabase,
-  opacity : .9
-}).addTo(map4);
+//L.esri.imageMapLayer({
+ // url: alaskabase,
+ // opacity : .9,
+
+///
+//}).addTo(map4);
+
+
+
+
+
+
 
 //var bubbles = L.bubbleLayer(cost, { property: "ESTIMATEDCOST" })
 

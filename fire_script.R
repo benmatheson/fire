@@ -10,8 +10,8 @@ library(jsonlite)
 #how to make geojson
 #https://recology.info/2015/04/geojson-io/
 #crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
-
-
+#getwd()
+#setwd("fire")
 
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
 fires <- read_xlsx("query.xlsx")
@@ -20,7 +20,18 @@ firesSP <- as.data.frame(fires)
 coordinates(firesSP) <- ~ LONGITUDE + LATITUDE
 writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
 
+#load the CSV for history
+
 ####Parse the fire Dataframe#####
+
+#remove the problematic "{}" in the 
+
+fires$ESTIMATEDTOTALACRES <- gsub("}","",fires$ESTIMATEDTOTALACRES)
+fires$ESTIMATEDTOTALACRES <-  gsub("\\{","",fires$ESTIMATEDTOTALACRES)
+fires$ESTIMATEDTOTALACRES <- as.numeric(fires$ESTIMATEDTOTALACRES)
+
+#as.numeric (as.character(fires$ESTIMATEDTOTACRES, stringsAsFactors = FALSE )) 
+typeof(fires$ESTIMATEDTOTALACRES)
 
 #this checks to see if there is an OUTDATE on the fire
 fires$burning <- is.na(fires$OUTDATE)
@@ -39,6 +50,8 @@ lightningFiresNumber <- count(lightningFires)
 totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
 
 
+
+
 #Most expensive current fires
   
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
@@ -52,6 +65,7 @@ largestFires <- largestFires[1:10,]
 largestFireNumber <- largestFires[1,11]
 largestfireName <- largestFires[1,2]
 
+fires$ESTIMATEDTOTALACRES
 
 totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
