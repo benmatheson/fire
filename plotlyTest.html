@@ -72,16 +72,33 @@ var trace1 = {
   x: fireHistoryDate,
   y: fireHistoryHumanAcres,
   mode:'lines+markers',
+  name: 'Human Caused Fires',   
+  text: "Acres",
 };
 
 var trace2 = {
   x: fireHistoryDate,
   y: fireHistoryLightningAcres,
-  mode: 'lines+markers'
+  mode: 'lines+markers',
+   name: 'Lightning Fires',
+     text: "Acres",
 };
 var dataHistory = [trace1, trace2];
 
-Plotly.newPlot('fireHistoryDiv', dataHistory);
+var lay = {
+   yaxis: {
+     title: 'Acres Burned',
+     size: 28,
+     titlefont: {
+       family: 'Arial, sans-serif',
+       size: 23,
+       color: 'black'
+     }
+   }
+ }
+Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
+
+
 Plotly.newPlot('costDiv', costData);
 
  });

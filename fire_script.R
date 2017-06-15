@@ -10,7 +10,7 @@ library(jsonlite)
 #how to make geojson
 #https://recology.info/2015/04/geojson-io/
 #crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
-#getwd()
+getwd()
 #setwd("fire")
 
 
@@ -28,13 +28,22 @@ fireHistory <- read.csv("fire_history.csv")
 fireHistory <- as.data.frame(fireHistory)
 
 
-fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >4)
+fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >5)
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 fireHistory2017[1,"SitReportDate"]="20170612"
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 
+#fireHistory2017$SitReportDate <-(as.numeric(fireHistory2017$SitReportDate))
+#typeof(fireHistory2017$SitReportDate)
 
 fireHistoryDate <- as.character(fireHistory2017$SitReportDate)
+
+slice1 <- substr(fireHistoryDate, 1,4)
+slice2 <- substr(fireHistoryDate, 5,6)
+slice3 <- substr(fireHistoryDate, 7,8)
+View(slice3)  
+
+fireHistoryDate <- paste(slice1, slice2, slice3, sep="-") 
 fireHistoryDate <- toJSON(fireHistoryDate)
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
 fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
@@ -42,7 +51,7 @@ fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
 fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
 
-fireHistoryDate
+#fireHistoryDate <- as.numeric(fireHistoryDate)
 
 ####Parse the fire Dataframe#####
 
@@ -51,6 +60,8 @@ fireHistoryDate
 fires$ESTIMATEDTOTALACRES <- gsub("}","",fires$ESTIMATEDTOTALACRES)
 fires$ESTIMATEDTOTALACRES <-  gsub("\\{","",fires$ESTIMATEDTOTALACRES)
 fires$ESTIMATEDTOTALACRES <- as.numeric(fires$ESTIMATEDTOTALACRES)
+
+
 
 #as.numeric (as.character(fires$ESTIMATEDTOTACRES, stringsAsFactors = FALSE )) 
 typeof(fires$ESTIMATEDTOTALACRES)
@@ -70,10 +81,10 @@ lightningFires <- filter(fires, GENERALCAUSE=="Lightning")
 lightningFiresNumber <- count(lightningFires)
 
 totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
-
-
 fireHistoryDate
 
+
+View(fires)
 #Most expensive current fires
   
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
@@ -98,10 +109,10 @@ sysTime <- paste0(Sys.time())
 #removes the fires that don't have both cost and size
 sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
 
-costArray <-sizeCost$ESTIMATEDTOTALCOST
+costArray <-fires$ESTIMATEDTOTALCOST
 costArray <- toJSON(costArray)
 
-sizeArray <- sizeCost$ESTIMATEDTOTALACRES
+sizeArray <- fires$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
 sizeArray
 sizeArray <- gsub('"',"",sizeArray)
