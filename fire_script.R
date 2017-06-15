@@ -13,6 +13,7 @@ library(jsonlite)
 #getwd()
 #setwd("fire")
 
+
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
 fires <- read_xlsx("query.xlsx")
 fires <- as.data.frame(fires)
@@ -26,8 +27,12 @@ fireHistory <- download.file("https://fire.ak.blm.gov/content/aicc/Statistics%20
 fireHistory <- read.csv("fire_history.csv")
 fireHistory <- as.data.frame(fireHistory)
 
+
 fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >4)
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
+fireHistory2017[1,"SitReportDate"]="20170612"
+fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
+
 
 fireHistoryDate <- as.character(fireHistory2017$SitReportDate)
 fireHistoryDate <- toJSON(fireHistoryDate)
@@ -36,6 +41,8 @@ fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
 fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
 fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
+
+fireHistoryDate
 
 ####Parse the fire Dataframe#####
 
@@ -65,7 +72,7 @@ lightningFiresNumber <- count(lightningFires)
 totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
 
 
-
+fireHistoryDate
 
 #Most expensive current fires
   
