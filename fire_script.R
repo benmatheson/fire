@@ -28,6 +28,7 @@ fireHistory <- read.csv("fire_history.csv")
 fireHistory <- as.data.frame(fireHistory)
 
 
+
 fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >5)
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 fireHistory2017[1,"SitReportDate"]="20170612"
@@ -41,7 +42,7 @@ fireHistoryDate <- as.character(fireHistory2017$SitReportDate)
 slice1 <- substr(fireHistoryDate, 1,4)
 slice2 <- substr(fireHistoryDate, 5,6)
 slice3 <- substr(fireHistoryDate, 7,8)
-View(slice3)  
+  
 
 fireHistoryDate <- paste(slice1, slice2, slice3, sep="-") 
 fireHistoryDate <- toJSON(fireHistoryDate)
@@ -84,14 +85,12 @@ totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
 fireHistoryDate
 
 
-View(fires)
 #Most expensive current fires
   
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
 mostExpensive <- mostExpensive[1:10,]
 mostExpensiveNumber <- mostExpensive[1,18]
 mostExpensiveName <- mostExpensive[1,2]
-
 
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
@@ -104,6 +103,7 @@ totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 
 sysTime <- paste0(Sys.time()) 
+sysDate <- paste0(Sys.Date())
  
 
 #removes the fires that don't have both cost and size
@@ -114,14 +114,10 @@ costArray <- toJSON(costArray)
 
 sizeArray <- fires$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
-sizeArray
 sizeArray <- gsub('"',"",sizeArray)
-sizeArray
 
-sizeArray
 nameArray <- as.character(sizeCost$NAME)
 nameArray <- toJSON(nameArray)
-
 
 discoverArray <- sizeCost$DISCOVERYDATETIME
 discoverArray <- toJSON(discoverArray)

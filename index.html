@@ -183,8 +183,17 @@ Recent Heat Detected by MODIS Satellite
   <div id='map4'></div>
 </div>
 
-<h2> visualizing area, cost, and date..</h2>
-  <div id="myDiv" style="width: 80%; margin:auto; height: 700px;"></div>
+<h2> dash</h2>
+
+
+    <div id="fireHistoryDiv" style="width: 80%;margin:auto; height:400px;"></div>
+  
+  
+   <div id="myDiv" style="width: 80%; margin:auto;"></div>
+
+    <div id="costDiv" style="width:80%; margin:auto; "></div>
+  
+
 
 
 <div class = "disclaimer"><br>
@@ -252,73 +261,77 @@ var costArray = JSON.parse(parsedData[0].costArray);
   var sizeArray = JSON.parse(parsedData[0].sizeArray);
   var nameArray = JSON.parse(parsedData[0].nameArray);
   var discoverArray = JSON.parse(parsedData[0].discoverArray);
-  
-  //console.log (discoverArray);
-  //console.log(costy);
-  //var costy2 = costy.subString(1);
-  //var costy3 = costy2.subString(-1);
-  //console.log(costy3);
-  //var costs = [parsedData[0].costArray];
-  //var size = [parsedData[0].sizeArray];
 
-var POP_TO_PX_SIZE = 9200;
+var fireHistoryDate = JSON.parse(parsedData[0].fireHistoryDate);
+var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
+var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
+var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
+var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
 
-  var trace1 ={
-  x: discoverArray,
-  y: sizeArray,
-  text: nameArray,costArray,
-  marker:{
-    color: "red",
-    opacity: 50,
-    sizeMode: "area",
-    size: costArray,
-    sizeref: POP_TO_PX_SIZE
 
+
+var histoData = [
+  {
+    x: sizeArray,
+    type: 'histogram',
+  marker: {
+    color: 'blue',
   },
-  mode: 'markers',
-  type: 'scatter'
-
-  };
-var datas = [trace1];
-var layout = {
-  xaxis: {
-    title: 'Discovery Date',
-    size: 28,
-    titlefont: {
-      family: 'Arial, sans-serif',
-      size: 26,
-      color: 'darkgrey'
-    },
-     xaxis: {range: ["2017-05-01 00:00:00", "2017-06-06 00:00:00"]},
-    showticklabels: true,
-    tickangle: 0,
-    tickfont: {
-      family: 'Open-sans sans-serif',
-      size: 25,
-      color: 'black'
-    },
-  
-  },
-  yaxis: {
-    title: 'Size of Fire',
-    size: 56,
-    titlefont: {
-      family: 'Open-sans, sans-serif',
-      size: 18,
-      color: 'darkgrey'
-    },
-    showticklabels: true,
-    tickangle: 0,
-    tickfont: {
-      family: 'Old Standard TT, serif',
-      size: 14,
-      color: 'black'
-    },
   }
+];
+
+
+
+
+
+var costData = [
+{
+
+  x: costArray,
+  type: 'histogram',
+  marker: {
+    color: 'red',
+  },
+}
+
+];
+
+
+var trace1 = {
+  x: fireHistoryDate,
+  y: fireHistoryHumanAcres,
+  mode:'lines+markers',
+  name: 'Human Caused Fires',   
+  text: "Acres",
 };
 
+var trace2 = {
+  x: fireHistoryDate,
+  y: fireHistoryLightningAcres,
+  mode: 'lines+markers',
+   name: 'Lightning Fires',
+     text: "Acres",
+};
+var dataHistory = [trace1, trace2];
 
-Plotly.newPlot('myDiv', datas, layout);
+var lay = {
+   yaxis: {
+     title: 'Acres Burned',
+     size: 28,
+     titlefont: {
+       family: 'Arial, sans-serif',
+       size: 23,
+       color: 'black'
+     }
+   }
+ }
+
+Plotly.newPlot('myDiv', histoData);
+
+Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
+
+
+Plotly.newPlot('costDiv', costData);
 
 
 
