@@ -14,6 +14,8 @@
   <div id="dateDiv" style="width: 600px; height: 400px;"></div>
 
     <div id="costDiv" style="width: 600px; height:400px;"></div>
+  
+    <div id="fireHistoryDiv" style="width: 600px; height:400px;"></div>
   <script>
 
 
@@ -24,6 +26,18 @@ $.getJSON(urlJSON, function(data){
 	var sizeArray = JSON.parse(parsedData[0].sizeArray);
 	var nameArray = JSON.parse(parsedData[0].nameArray);
 	var discoverArray = JSON.parse(parsedData[0].discoverArray);
+
+var discoverArray = JSON.parse(parsedData[0].discoverArray);
+
+var fireHistoryDate = JSON.parse(parsedData[0].fireHistoryDate);
+var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
+var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
+var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
+var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
+
+
+
+
 	
 
 var data = [
@@ -51,12 +65,24 @@ var costData = [
   },
 }
 
-
 ];
 
 
-  Plotly.newPlot('costDiv', costData);
+var trace1 = {
+  x: fireHistoryDate,
+  y: fireHistoryHumanAcres,
+  mode:'lines+markers',
+};
 
+var trace2 = {
+  x: fireHistoryDate,
+  y: fireHistoryLightningAcres,
+  mode: 'lines+markers'
+};
+var dataHistory = [trace1, trace2];
+
+Plotly.newPlot('fireHistoryDiv', dataHistory);
+Plotly.newPlot('costDiv', costData);
 
  });
 
@@ -157,5 +183,5 @@ var costData = [
 // //Plotly.newPlot('myDiv', data);
 
 //   </script>
-// </body>
-// </html>
+ </body>
+ </html>
