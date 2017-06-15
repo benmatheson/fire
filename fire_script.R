@@ -1,3 +1,6 @@
+unlink(".RData") 
+
+
 library(dplyr)
 library(readxl)
 library(sp)
@@ -17,9 +20,9 @@ getwd()
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
 fires <- read_xlsx("query.xlsx")
 fires <- as.data.frame(fires)
-firesSP <- as.data.frame(fires)
-coordinates(firesSP) <- ~ LONGITUDE + LATITUDE
-writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
+#firesSP <- as.data.frame(fires)
+#coordinates(firesSP) <- ~ LONGITUDE + LATITUDE
+#writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
 
 #load the CSV for history
 
@@ -91,6 +94,9 @@ mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
 mostExpensive <- mostExpensive[1:10,]
 mostExpensiveNumber <- mostExpensive[1,18]
 mostExpensiveName <- mostExpensive[1,2]
+
+View(mostExpensive)
+
 
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
