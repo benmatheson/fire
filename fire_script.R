@@ -23,7 +23,6 @@ fires <- as.data.frame(fires)
 #firesSP <- as.data.frame(fires)
 #coordinates(firesSP) <- ~ LONGITUDE + LATITUDE
 #writeOGR(firesSP, 'fires.geojson',layer="fires", driver='GeoJSON')
-View(fires)
 #load the CSV for history
 
 fireHistory <- download.file("https://fire.ak.blm.gov/content/aicc/Statistics%20Directory/Alaska%20Daily%20Stats%20-%202004%20to%20Present.csv", "fire_history.csv")
@@ -95,7 +94,7 @@ mostExpensive <- mostExpensive[1:10,]
 mostExpensiveNumber <- mostExpensive[1,18]
 mostExpensiveName <- mostExpensive[1,2]
 
-View(mostExpensive)
+#View(mostExpensive)
 
 
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
