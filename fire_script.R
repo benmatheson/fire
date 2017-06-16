@@ -8,13 +8,14 @@ library(rgdal)
 library(geojsonio)
 library(rjson)
 library(jsonlite)
+library(lubridate)
 
 #https://github.com/OpenGov/Leaflet.bubble
 #how to make geojson
 #https://recology.info/2015/04/geojson-io/
 #crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
 getwd()
-setwd("fire")
+#setwd("fire")
 
 
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
@@ -29,29 +30,42 @@ fireHistory <- download.file("https://fire.ak.blm.gov/content/aicc/Statistics%20
 fireHistory <- read.csv("fire_history.csv")
 fireHistory <- as.data.frame(fireHistory)
 
+#make the fire history a date in YYYY-MM-DD format
 
+fireHistory$SitReportDate <- as.character(fireHistory$SitReportDate)
+slice1 <- substr(fireHistory$SitReportDate, 1,4)
+slice2 <- substr(fireHistory$SitReportDate, 5,6)
+slice3 <- substr(fireHistory$SitReportDate, 7,8)
+fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-") 
+#create julien date
+fireHistory$jd <- yday(fireHistory$SitReportDate)
 
 fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >5)
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 fireHistory2017[1,"SitReportDate"]="20170612"
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 
-#fireHistory2017$SitReportDate <-(as.numeric(fireHistory2017$SitReportDate))
-#typeof(fireHistory2017$SitReportDate)
 
-fireHistoryDate <- as.character(fireHistory2017$SitReportDate)
-
-slice1 <- substr(fireHistoryDate, 1,4)
-slice2 <- substr(fireHistoryDate, 5,6)
-slice3 <- substr(fireHistoryDate, 7,8)
-  
-
-fireHistoryDate <- paste(slice1, slice2, slice3, sep="-") 
 fireHistoryDate <- toJSON(fireHistoryDate)
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
 fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
 fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
 fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
+
+
+fireHistoryDates <- filter(fireHistory, jd >150 & jd<200 &FireSeason ==2016) %>% arrange(desc(jd))
+fireHistoryDates <- fireHistoryDates$SitReportDate
+
+fireHistory2017Acres <- filter(fireHistory, FireSeason == 2016, jd >150) %>% arrange(desc(jd))%>% select(TotalAcres)
+fireHistory2016Acres <- toJSON(as.character(filter(fireHistory, FireSeason == 2016, jd >150 & jd<200) %>% arrange(desc(jd)) %>% select(TotalAcres)))
+fireHistory2015Acres <-  toJSON(filter(fireHistory, FireSeason == 2015, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres))
+fireHistory2014Acres <- filter(fireHistory, FireSeason == 2014, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
+fireHistory2013Acres <- filter(fireHistory, FireSeason == 2013, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
+fireHistory2012Acres <- filter(fireHistory, FireSeason == 2012, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
+fireHistory2011Acres <- filter(fireHistory, FireSeason == 2011, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
+
+fireHistory2017Acres <- toJSON(fireHistory2017Acres)
+fireHistory2016Acres
 
 
 #fireHistoryDate <- as.numeric(fireHistoryDate)
@@ -94,8 +108,6 @@ mostExpensive <- mostExpensive[1:10,]
 mostExpensiveNumber <- mostExpensive[1,18]
 mostExpensiveName <- mostExpensive[1,2]
 
-#View(mostExpensive)
-
 
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
@@ -130,9 +142,9 @@ discoverArray <- toJSON(discoverArray)
 #Bring summary data into dataframe, export to JSON
 
 #, sizeArray, nameArray, discoverArray, totalFiresc)
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDate, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDate, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires, fireHistory2016Acres)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDate", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDate", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires", "fireHistory2016Acres")
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
 
@@ -146,21 +158,7 @@ system(push_git)
 
 download.file("https://rawgit.com/benmatheson/fire/master/exportJSON.JSON", "local_download.json")
 
-# /usr/local/bin/Rscript
-#run from command line Rscript fire_script.R
 
-
-# push_git <- paste0("cd fire && git add --all && git commit -m '", 
-#                    as.character(Sys.time()), 
-#                    "' && git push origin master")
-
-# 
-# There are currently __ firest burning in Alaska. A total of __acres have burned, ___% from human caused fires, % from lightening caused fires. 
-# 
-# ___ are in Critical protection
-# ___full
-# ____limited
-# ___modified
 
 
 
