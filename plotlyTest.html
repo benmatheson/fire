@@ -16,6 +16,8 @@
     <div id="costDiv" style="width: 600px; height:400px;"></div>
   
     <div id="fireHistoryDiv" style="width: 80%; height:400px;"></div>
+
+    <div id="historyDiv" style="width: 80%; height:400px;"></div>
   <script>
 
 
@@ -34,6 +36,8 @@ var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
 var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
 var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
 var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
+var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
+var fireHistory2013Acres = JSON.parse(parsedData[0].fireHistory2013Acres);
 
 
 
@@ -100,8 +104,8 @@ Plotly.newPlot('myDiv', data);
 
 Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
 
-
 Plotly.newPlot('costDiv', costData);
+Plotly.newPlot('historyDiv', historyData);
 
  });
 

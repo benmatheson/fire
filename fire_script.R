@@ -29,7 +29,7 @@ fires <- as.data.frame(fires)
 fireHistory <- download.file("https://fire.ak.blm.gov/content/aicc/Statistics%20Directory/Alaska%20Daily%20Stats%20-%202004%20to%20Present.csv", "fire_history.csv")
 fireHistory <- read.csv("fire_history.csv")
 fireHistory <- as.data.frame(fireHistory)
-
+head(fireHistory)
 #make the fire history a date in YYYY-MM-DD format
 
 fireHistory$SitReportDate <- as.character(fireHistory$SitReportDate)
@@ -37,10 +37,17 @@ slice1 <- substr(fireHistory$SitReportDate, 1,4)
 slice2 <- substr(fireHistory$SitReportDate, 5,6)
 slice3 <- substr(fireHistory$SitReportDate, 7,8)
 fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-") 
+
+#fixed the bad thign???
+fireHistory <- filter(fireHistory, FireSeason == 2017, Month >5)
+fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitReportDate)
+
 #create julien date
 fireHistory$jd <- yday(fireHistory$SitReportDate)
 
-fireHistory2017 <- filter(fireHistory, FireSeason == 2017, Month >5)
+
+
+
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 fireHistory2017[1,"SitReportDate"]="20170612"
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
@@ -136,9 +143,9 @@ discoverArray <- toJSON(discoverArray)
 #Bring summary data into dataframe, export to JSON
 
 #, sizeArray, nameArray, discoverArray, totalFiresc)
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDates, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires, fireHistory2016Acres)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDates, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires, fireHistory2017Acres, fireHistory2013Acres)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDates", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires", "fireHistory2016Acres")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDates", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires", "fireHistory2017Acres", "fireHistory2013Acres")
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
 
