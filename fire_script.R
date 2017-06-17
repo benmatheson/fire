@@ -45,7 +45,7 @@ fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 fireHistory2017[1,"SitReportDate"]="20170612"
 fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
 
-
+typeof(fireHistoryLightningAcres)
 fireHistoryDate <- toJSON(fireHistoryDate)
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
 fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
@@ -54,21 +54,18 @@ fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
 
 fireHistoryDates <- filter(fireHistory, jd >150 & jd<200 &FireSeason ==2016) %>% arrange(desc(jd))
-fireHistoryDates <- fireHistoryDates$SitReportDate
+fireHistoryDates <- toJSON(fireHistoryDates$SitReportDate)
 
-fireHistory2017Acres <- filter(fireHistory, FireSeason == 2016, jd >150) %>% arrange(desc(jd))%>% select(TotalAcres)
-fireHistory2016Acres <- toJSON(as.character(filter(fireHistory, FireSeason == 2016, jd >150 & jd<200) %>% arrange(desc(jd)) %>% select(TotalAcres)))
-fireHistory2015Acres <-  toJSON(filter(fireHistory, FireSeason == 2015, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres))
-fireHistory2014Acres <- filter(fireHistory, FireSeason == 2014, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
-fireHistory2013Acres <- filter(fireHistory, FireSeason == 2013, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
-fireHistory2012Acres <- filter(fireHistory, FireSeason == 2012, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
-fireHistory2011Acres <- filter(fireHistory, FireSeason == 2011, jd >150 & jd<200) %>% arrange(desc(jd))%>% select(TotalAcres)
+#think this returns just the vector
 
-fireHistory2017Acres <- toJSON(fireHistory2017Acres)
-fireHistory2016Acres
+fireHistory2017Acres <- toJSON(filter(fireHistory, FireSeason == 2017, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2016Acres <- toJSON(filter(fireHistory, FireSeason == 2016, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2015Acres <- toJSON(filter(fireHistory, FireSeason == 2015, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2014Acres <- toJSON(filter(fireHistory, FireSeason == 2014, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2013Acres <- toJSON(filter(fireHistory, FireSeason == 2013, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2012Acres <- toJSON(filter(fireHistory, FireSeason == 2012, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2011Acres <- toJSON(filter(fireHistory, FireSeason == 2011, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
 
-
-#fireHistoryDate <- as.numeric(fireHistoryDate)
 
 ####Parse the fire Dataframe#####
 
@@ -114,29 +111,29 @@ largestFires <- largestFires[1:10,]
 largestFireNumber <- largestFires[1,11]
 largestfireName <- largestFires[1,2]
 
-fires$ESTIMATEDTOTALACRES
-
 totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 
 sysTime <- paste0(Sys.time()) 
 sysDate <- paste0(Sys.Date())
  
-
 #removes the fires that don't have both cost and size
 sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
 
 costArray <-fires$ESTIMATEDTOTALCOST
+typeof(costArray)
+str(costArray)
 costArray <- toJSON(costArray)
 
 sizeArray <- fires$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
 sizeArray <- gsub('"',"",sizeArray)
 
-nameArray <- as.character(sizeCost$NAME)
+nameArray <- as.character(fires$NAME)
 nameArray <- toJSON(nameArray)
 
-discoverArray <- sizeCost$DISCOVERYDATETIME
+discoverArray <- fires$DISCOVERYDATETIME
+typeof(discoverArray)
 discoverArray <- toJSON(discoverArray)
 
 #Bring summary data into dataframe, export to JSON
