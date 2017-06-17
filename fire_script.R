@@ -38,19 +38,14 @@ slice2 <- substr(fireHistory$SitReportDate, 5,6)
 slice3 <- substr(fireHistory$SitReportDate, 7,8)
 fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-") 
 
-#fixed the bad thign???
+#fixed the bad thign???***here 
 fireHistory <- filter(fireHistory, FireSeason == 2017, Month >5)
 fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitReportDate)
 
 #create julien date
 fireHistory$jd <- yday(fireHistory$SitReportDate)
 
-
-
-
-fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
-fireHistory2017[1,"SitReportDate"]="20170612"
-fireHistory2017 <- arrange(fireHistory2017, desc(SitReportDate))
+fireHistory2017 <- filter(fireHistory, FireSeason ==2017)
 
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
 fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
@@ -58,20 +53,24 @@ fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
 fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
 
-fireHistoryDates <- filter(fireHistory, jd >150 & jd<200 &FireSeason ==2016) %>% arrange(desc(jd))
+fireHistoryDates <- filter(fireHistory, jd >150 & jd<200 &FireSeason ==2016) %>% arrange((jd))
 fireHistoryDates <- toJSON(fireHistoryDates$SitReportDate)
+
+View(fireHistory)
 
 #think this returns just the vector
 
-fireHistory2017Acres <- toJSON(filter(fireHistory, FireSeason == 2017, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2016Acres <- toJSON(filter(fireHistory, FireSeason == 2016, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2015Acres <- toJSON(filter(fireHistory, FireSeason == 2015, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2014Acres <- toJSON(filter(fireHistory, FireSeason == 2014, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2013Acres <- toJSON(filter(fireHistory, FireSeason == 2013, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2012Acres <- toJSON(filter(fireHistory, FireSeason == 2012, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
-fireHistory2011Acres <- toJSON(filter(fireHistory, FireSeason == 2011, jd >150) %>% arrange(desc(jd))%>% .$TotalAcres)
+fireHistory2017Acres <- toJSON(filter(fireHistory, FireSeason == 2017, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2016Acres <- toJSON(filter(fireHistory, FireSeason == 2016, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2015Acres <- toJSON(filter(fireHistory, FireSeason == 2015, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2014Acres <- toJSON(filter(fireHistory, FireSeason == 2014, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2013Acres <- toJSON(filter(fireHistory, FireSeason == 2013, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2012Acres <- toJSON(filter(fireHistory, FireSeason == 2012, jd >150) %>% arrange((jd))%>% .$TotalAcres)
+fireHistory2011Acres <- toJSON(filter(fireHistory, FireSeason == 2011, jd >150) %>% arrange((jd))%>% .$TotalAcres)
 
+fireHistory2017Acres
 
+fireHistory2013Acres
 ####Parse the fire Dataframe#####
 
 #remove the problematic "{}" in the 
@@ -149,7 +148,7 @@ names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "to
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
 
-
+fireHistory2013Acres
 
 push_git <- paste0("git add --all && git commit -m '", 
                    as.character(Sys.time()), 
