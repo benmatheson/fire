@@ -39,7 +39,7 @@ slice3 <- substr(fireHistory$SitReportDate, 7,8)
 fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-") 
 
 #fixed the bad thign???***here 
-fireHistory <- filter(fireHistory, FireSeason == 2017, Month >5)
+fireHistory <- filter(fireHistory, Month >5)
 fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitReportDate)
 
 #create julien date
