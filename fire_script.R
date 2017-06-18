@@ -47,6 +47,7 @@ fireHistory$jd <- yday(fireHistory$SitReportDate)
 
 fireHistory2017 <- filter(fireHistory, FireSeason ==2017) %>% arrange(desc(SitReportDate))
 
+
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
 fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
 fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
