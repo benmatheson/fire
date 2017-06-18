@@ -45,7 +45,7 @@ fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitRepo
 #create julien date
 fireHistory$jd <- yday(fireHistory$SitReportDate)
 
-fireHistory2017 <- filter(fireHistory, FireSeason ==2017) %>% arrange(desc(SitReportDate))
+fireHistory2017 <- filter(fireHistory, FireSeason ==2017) %>% arrange(SitReportDate)
 
 
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
