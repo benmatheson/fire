@@ -36,9 +36,13 @@ var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
 var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
 var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
 var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
-var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
+var fireHistory2011Acres = JSON.parse(parsedData[0].fireHistory2011Acres);
+var fireHistory2012Acres = JSON.parse(parsedData[0].fireHistory2012Acres);
 var fireHistory2013Acres = JSON.parse(parsedData[0].fireHistory2013Acres);
-
+var fireHistory2014Acres = JSON.parse(parsedData[0].fireHistory2014Acres);
+var fireHistory2015Acres = JSON.parse(parsedData[0].fireHistory2015Acres);
+var fireHistory2016Acres = JSON.parse(parsedData[0].fireHistory2016Acres);
+var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
 
 
 
@@ -100,12 +104,92 @@ var lay = {
    }
  }
 
+
+
+//the HISTORY one
+
+var history2011 = {
+  x: fireHistoryDates,
+  y: fireHistory2011Acres,
+  mode:'lines+markers',
+  name: '2011',   
+  text: "Acres",
+};
+var history2012 = {
+  x: fireHistoryDates,
+  y: fireHistory2012Acres,
+  mode:'lines+markers',
+  name: '2012',   
+  text: "Acres",
+};
+
+
+var history2013 = {
+  x: fireHistoryDates,
+  y: fireHistory2013Acres,
+  mode:'lines+markers',
+  name: '2013',   
+  text: "Acres",
+};
+
+
+var history2014 = {
+  x: fireHistoryDates,
+  y: fireHistory2014Acres,
+  mode: 'lines+markers',
+   name: '2014',
+     text: "Acres",
+};
+
+
+var history2015 = {
+  x: fireHistoryDates,
+  y: fireHistory2015Acres,
+  mode: 'lines+markers',
+   name: '2015',
+     text: "Acres",
+};
+
+
+var history2016 = {
+  x: fireHistoryDates,
+  y: fireHistory2016Acres,
+  mode: 'lines+markers',
+   name: '2016',
+     text: "Acres",
+};
+var history2017 = {
+  x: fireHistoryDates,
+  y: fireHistory2017Acres,
+  mode: 'lines+markers',
+   name: '2017',
+     text: "Acres",
+};
+
+var historyData = [history2011, history2012, history2013, history2014, history2015, history2016, history2017];
+
+
+var lay = {
+   yaxis: {
+     title: 'Acres Burned',
+     size: 28,
+     titlefont: {
+       family: 'Arial, sans-serif',
+       size: 23,
+       color: 'black'
+     }
+   }
+ }
+
+
+
+
 Plotly.newPlot('myDiv', data);
 
 Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
 
 Plotly.newPlot('costDiv', costData);
-Plotly.newPlot('historyDiv', historyData);
+Plotly.newPlot('historyDiv', historyData, layout);
 
  });
 
