@@ -17,7 +17,7 @@
   
     <div id="fireHistoryDiv" style="width: 80%; height:400px;"></div>
 
-    <div id="historyDiv" style="width: 80%; height:400px;"></div>
+    <div id="historyDiv" style="width: 80%; height:900px;"></div>
   <script>
 
 
@@ -93,11 +93,17 @@ var trace2 = {
 var dataHistory = [trace1, trace2];
 
 var lay = {
+
+  font: {
+    family: 'Roboto, sans-serif'
+     },
+
    yaxis: {
      title: 'Acres Burned',
      size: 28,
+     
      titlefont: {
-       family: 'Arial, sans-serif',
+       family: 'Roboto, sans-serif',
        size: 23,
        color: 'black'
      }
@@ -114,6 +120,11 @@ var history2011 = {
   mode:'lines+markers',
   name: '2011',   
   text: "Acres",
+  marker: {
+  color: '#f0f9e8',
+    opacity: .5}
+
+
 };
 var history2012 = {
   x: fireHistoryDates,
@@ -121,6 +132,9 @@ var history2012 = {
   mode:'lines+markers',
   name: '2012',   
   text: "Acres",
+  marker: {
+  color: '#ccebc5',
+    opacity: .5}
 };
 
 
@@ -130,6 +144,9 @@ var history2013 = {
   mode:'lines+markers',
   name: '2013',   
   text: "Acres",
+  marker: {
+  color: '#a8ddb5',
+    opacity: .5}
 };
 
 
@@ -139,6 +156,9 @@ var history2014 = {
   mode: 'lines+markers',
    name: '2014',
      text: "Acres",
+     marker: {
+  color: '#7bccc4',
+    opacity: .4}
 };
 
 
@@ -148,6 +168,9 @@ var history2015 = {
   mode: 'lines+markers',
    name: '2015',
      text: "Acres",
+     marker: {
+  color: '#43a2ca',
+    opacity: .4}
 };
 
 
@@ -157,6 +180,9 @@ var history2016 = {
   mode: 'lines+markers',
    name: '2016',
      text: "Acres",
+     marker: {
+  color: '#0868ac',
+    opacity: .4}
 };
 var history2017 = {
   x: fireHistoryDates,
@@ -164,17 +190,20 @@ var history2017 = {
   mode: 'lines+markers',
    name: '2017',
      text: "Acres",
+     marker: {
+  color: '#f03b20',
+    opacity: .99}
 };
 
 var historyData = [history2011, history2012, history2013, history2014, history2015, history2016, history2017];
 
 
-var lay = {
+var layout = {
    yaxis: {
      title: 'Acres Burned',
      size: 28,
      titlefont: {
-       family: 'Arial, sans-serif',
+       family: 'Roboto, sans-serif',
        size: 23,
        color: 'black'
      }
