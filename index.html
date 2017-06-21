@@ -174,10 +174,13 @@ This automated summary is based of data downloaded at <span class="inlineEmph" i
 	<p class = "disclaimer">  </p>
 
 <div id= "maps">
-Current Fire Perimeters
-  <div id='map1'></div>
+
 Current Fire Locations
   <div id='map2'></div>
+
+  Current Fire Perimeters
+  <div id='map1'></div>
+
 Recent Lightning Detected 
   <div id='map3'></div>
 Recent Heat Detected by MODIS Satellite
@@ -194,6 +197,7 @@ Recent Heat Detected by MODIS Satellite
 
     <div id="costDiv" style="width:80%; margin:auto; "></div>
   
+    <div id="historyDiv" style="width:80%; margin:auto; "></div>
 
 
 
@@ -231,6 +235,8 @@ Recent Heat Detected by MODIS Satellite
 
 <!-- Load Heatmap Feature Layer from CDN -->
 <script src="https://unpkg.com/esri-leaflet-heatmap@2.0.0"></script>
+<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.standalone.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
 
 
 
@@ -268,6 +274,13 @@ var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
 var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
 var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
 var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
+var fireHistory2011Acres = JSON.parse(parsedData[0].fireHistory2011Acres);
+var fireHistory2012Acres = JSON.parse(parsedData[0].fireHistory2012Acres);
+var fireHistory2013Acres = JSON.parse(parsedData[0].fireHistory2013Acres);
+var fireHistory2014Acres = JSON.parse(parsedData[0].fireHistory2014Acres);
+var fireHistory2015Acres = JSON.parse(parsedData[0].fireHistory2015Acres);
+var fireHistory2016Acres = JSON.parse(parsedData[0].fireHistory2016Acres);
+var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
 
 
 
@@ -276,7 +289,7 @@ var histoData = [
     x: sizeArray,
     type: 'histogram',
   marker: {
-    color: 'blue',
+    color: '#6baed6',
   },
   }
 ];
@@ -327,12 +340,124 @@ var lay = {
    }
  }
 
+
+//the HISTORY one
+
+var history2011 = {
+  x: fireHistoryDates,
+  y: fireHistory2011Acres,
+  mode:'lines+markers',
+  name: '2011',   
+  text: "Acres",
+  marker: {
+  color: '#f0f9e8',
+    opacity: .5}
+
+
+};
+var history2012 = {
+  x: fireHistoryDates,
+  y: fireHistory2012Acres,
+  mode:'lines+markers',
+  name: '2012',   
+  text: "Acres",
+  marker: {
+  color: '#ccebc5',
+    opacity: .5}
+};
+
+
+var history2013 = {
+  x: fireHistoryDates,
+  y: fireHistory2013Acres,
+  mode:'lines+markers',
+  name: '2013',   
+  text: "Acres",
+  marker: {
+  color: '#a8ddb5',
+    opacity: .5}
+};
+
+
+var history2014 = {
+  x: fireHistoryDates,
+  y: fireHistory2014Acres,
+  mode: 'lines+markers',
+   name: '2014',
+     text: "Acres",
+     marker: {
+  color: '#7bccc4',
+    opacity: .4}
+};
+
+
+var history2015 = {
+  x: fireHistoryDates,
+  y: fireHistory2015Acres,
+  mode: 'lines+markers',
+   name: '2015',
+     text: "Acres",
+     marker: {
+  color: '#43a2ca',
+    opacity: .4}
+};
+
+
+var history2016 = {
+  x: fireHistoryDates,
+  y: fireHistory2016Acres,
+  mode: 'lines+markers',
+   name: '2016',
+     text: "Acres",
+     marker: {
+  color: '#0868ac',
+    opacity: .4}
+};
+var history2017 = {
+  x: fireHistoryDates,
+  y: fireHistory2017Acres,
+  mode: 'lines+markers',
+   name: '2017',
+     text: "Acres",
+     marker: {
+  color: '#f03b20',
+    opacity: .99}
+};
+
+var historyData = [history2011, history2012, history2013, history2014, history2015, history2016, history2017];
+
+
+var layout = {
+   yaxis: {
+     title: 'Acres Burned',
+     size: 28,
+     titlefont: {
+       family: 'Roboto, sans-serif',
+       size: 23,
+       color: 'black'
+     }
+   },
+
+ xaxis: {
+     title: 'Date',
+     size: 28,
+     titlefont: {
+       family: 'Roboto, sans-serif',
+       size: 23,
+       color: 'black',
+       range: ["2016-06-01", "2016-06-22"]
+     }
+   }
+
+ }
+
 Plotly.newPlot('myDiv', histoData);
 
 Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
 
 
 Plotly.newPlot('costDiv', costData);
+Plotly.newPlot('historyDiv', historyData, layout);
 
 
 
@@ -348,8 +473,13 @@ var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
 var map3 = L.map('map3').setView([64.1781, -149.9003],4);
 var map4 = L.map('map4').setView([64.1781, -149.9003], 5);
 
-L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map1);
 
+var mapbox.accessToken = 'pk.eyJ1IjoiYmVubWF0aGVzb24iLCJhIjoiY2lmZDhyZXVxNTI5eHNtbHgyOTYwbHJtMyJ9.Ch8JQXvunpUrv6tGpeJMCA';
+
+
+
+//L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map1);
+L.mapbox.tileLayer('mapbox.satellite').addto(map1);
 L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map2);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map3);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map4);
