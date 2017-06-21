@@ -49,8 +49,8 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
 	.inline {
 
-font-family: 'Open Sans', sans-serif;
-	font-weight: 400;
+font-family: 'Roboto', sans-serif;
+	font-weight: 300;
 	color: #000000;
   padding: 0% 20% 0% 20%;
   margin:auto;
@@ -66,9 +66,9 @@ font-family: 'Open Sans', sans-serif;
 	}
 
   .inlineEmph {
-
+    font-family: "Roboto"
     font-weight: bold;
-    font-weight: 400;
+    font-weight: 900;
     font-size: 1.5em;
     font-color: #000000;
   }
@@ -474,13 +474,13 @@ var map3 = L.map('map3').setView([64.1781, -149.9003],4);
 var map4 = L.map('map4').setView([64.1781, -149.9003], 5);
 
 
-var mapbox.accessToken = 'pk.eyJ1IjoiYmVubWF0aGVzb24iLCJhIjoiY2lmZDhyZXVxNTI5eHNtbHgyOTYwbHJtMyJ9.Ch8JQXvunpUrv6tGpeJMCA';
+L.mapbox.accessToken = 'pk.eyJ1IjoiYmVubWF0aGVzb24iLCJhIjoiY2lmZDhyZXVxNTI5eHNtbHgyOTYwbHJtMyJ9.Ch8JQXvunpUrv6tGpeJMCA';
 
 
 
 //L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map1);
-L.mapbox.tileLayer('mapbox.satellite').addto(map1);
-L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map2);
+L.mapbox.tileLayer('mapbox.dark').addTo(map1);
+L.mapbox.tileLayer('mapbox.satellite').addTo(map2);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map3);
 L.tileLayer.provider('CartoDB.PositronNoLabels').addTo(map4);
 
