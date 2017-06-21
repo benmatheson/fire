@@ -53,7 +53,9 @@ fireHistoryLightningAcres <- toJSON(fireHistory2017$LightningAcres)
 fireHistoryHumanFires<- toJSON(fireHistory2017$HumanFires)
 fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
-fireHistoryDates <- filter(fireHistory, jd >150 & jd<200 &FireSeason ==2016) %>% arrange((jd))
+
+#**JD FIX?
+fireHistoryDates <- filter(fireHistory, jd >150 & jd<185 &FireSeason ==2016) %>% arrange((jd))
 fireHistoryDates <- toJSON(fireHistoryDates$SitReportDate)
 
 #think this returns just the vector
@@ -110,8 +112,15 @@ mostExpensiveName <- mostExpensive[1,2]
 largestFires <- filter(fires, ESTIMATEDTOTALACRES != 0)
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
+largestFiresNames <- largestFires[,2]
+largestFiresNumbers <- largestFires[,11]
 largestFireNumber <- largestFires[1,11]
 largestfireName <- largestFires[1,2]
+
+
+largestFiresNumbers <- toJSON(largestFiresNumbers)
+largestFiresNames <- toJSON(largestFiresNames)
+
 
 totalAcerage <- sum(fires$ESTIMATEDTOTALACRES, na.rm=TRUE)
 totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
@@ -119,9 +128,6 @@ totalCost <- sum(fires$ESTIMATEDTOTALCOST, na.rm=TRUE)
 sysTime <- paste0(Sys.time()) 
 sysDate <- paste0(Sys.Date())
  
-#removes the fires that don't have both cost and size
-#sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
-
 costArray <-fires$ESTIMATEDTOTALCOST
 costArray <- toJSON(costArray)
 
@@ -139,9 +145,9 @@ discoverArray <- toJSON(discoverArray)
 #Bring summary data into dataframe, export to JSON
 
 #, sizeArray, nameArray, discoverArray, totalFiresc)
-row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDates, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires, fireHistory2011Acres, fireHistory2012Acres, fireHistory2013Acres, fireHistory2014Acres, fireHistory2015Acres, fireHistory2016Acres, fireHistory2017Acres)
+row <- c(sysTime, lightningFiresNumber, humanFiresNumber, totalAcerage, totalCost, mostExpensiveNumber, largestFireNumber, mostExpensiveName, largestfireName, currentCount, costArray, sizeArray, nameArray, discoverArray, totalFires, fireHistoryDates, fireHistoryHumanAcres, fireHistoryHumanFires, fireHistoryLightningAcres, fireHistoryLightningFires, fireHistory2011Acres, fireHistory2012Acres, fireHistory2013Acres, fireHistory2014Acres, fireHistory2015Acres, fireHistory2016Acres, fireHistory2017Acres, largestFiresNames, largestFiresNumbers)
 export <- data.frame(row, stringsAsFactors=FALSE)
-names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDates", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires", "fireHistory2011Acres", "fireHistory2012Acres", "fireHistory2013Acres", "fireHistory2014Acres",  "fireHistory2015Acres", "fireHistory2016Acres","fireHistory2017Acres")
+names(export) <- c("systemTime", "lightningFiresNumber", "humanFiresNumber", "totalAcerage", "totalCost", "mostExpensiveNumber", "largestFireNumber", "mostExpensiveName", "largestfireName", "currentCount", "costArray", "sizeArray", "nameArray", "discoverArray", "totalFires", "fireHistoryDates", "fireHistoryHumanAcres", "fireHistoryHumanFires", "fireHistoryLightningAcres", "fireHistoryLightningFires", "fireHistory2011Acres", "fireHistory2012Acres", "fireHistory2013Acres", "fireHistory2014Acres",  "fireHistory2015Acres", "fireHistory2016Acres","fireHistory2017Acres", "largestFiresNames", "largestFiresNumbers")
 exportJSON <- toJSON(export, pretty=TRUE)
 write(exportJSON, "exportJSON.JSON")
 
