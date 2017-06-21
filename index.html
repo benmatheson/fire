@@ -7,7 +7,14 @@ https://fsapps.nwcg.gov/afm/wms.php?sensor=modis&extent=alaska
 
 MORE FIRE WEB SERVICEW
 
-prod
+
+
++plus a donut chart? hman/lightngin
+and add a mapbox basemap
+and change div css to CLASSES
+
++acres since ysterday? in big text (based off of teh CSV)
+
 
 
 https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+API+for+Developers#GIBSAPIforDevelopers-ServiceEndpoints
@@ -69,7 +76,7 @@ font-family: 'Roboto', sans-serif;
     font-family: "Roboto"
     font-weight: bold;
     font-weight: 900;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-color: #000000;
   }
 
@@ -192,6 +199,8 @@ Recent Heat Detected by MODIS Satellite
 
     <div id="fireHistoryDiv" style="width: 80%;margin:auto; height:400px;"></div>
   
+      <div id="donutCount" style="width: 80%; height:600px;"></div>
+
   
    <div id="myDiv" style="width: 80%; margin:auto;"></div>
 
@@ -263,6 +272,10 @@ $.getJSON(urlJSON, function(data){
 	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
   document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
   document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+
+var humanFiresNumber = parsedData[0].humanFiresNumber;
+var lightningFiresNumber =parsedData[0].lightningFiresNumber;
+
 
 var costArray = JSON.parse(parsedData[0].costArray);
   var sizeArray = JSON.parse(parsedData[0].sizeArray);
@@ -451,6 +464,21 @@ var layout = {
 
  }
 
+var donutCountData = [{
+  values: [humanFiresNumber, lightningFiresNumber],
+  labels: ['human', 'lightning' ],
+  marker: {color: ['#fdae61', "#abd9e9"]},
+  name: 'Fires',
+  hoverinfo: 'label+value',
+  textinfo:'label+value+',
+  hole: .6,
+  type: 'pie'
+}];
+
+
+
+
+
 Plotly.newPlot('myDiv', histoData);
 
 Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
@@ -458,6 +486,7 @@ Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
 
 Plotly.newPlot('costDiv', costData);
 Plotly.newPlot('historyDiv', historyData, layout);
+Plotly.newPlot('donutCount', donutCountData);
 
 
 

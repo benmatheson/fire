@@ -101,12 +101,13 @@ totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
 
 #Most expensive current fires
   
+mostExpensive <- filter(fires, ESTIMATEDTOTALCOST != 0)
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
 mostExpensive <- mostExpensive[1:10,]
 mostExpensiveNumber <- mostExpensive[1,18]
 mostExpensiveName <- mostExpensive[1,2]
 
-
+largestFires <- filter(fires, ESTIMATEDTOTALACRES != 0)
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
 largestFires <- largestFires[1:10,]
 largestFireNumber <- largestFires[1,11]
@@ -119,11 +120,9 @@ sysTime <- paste0(Sys.time())
 sysDate <- paste0(Sys.Date())
  
 #removes the fires that don't have both cost and size
-sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
+#sizeCost <- filter(fires, ESTIMATEDTOTALCOST != 0 & ESTIMATEDTOTALACRES != 0)
 
 costArray <-fires$ESTIMATEDTOTALCOST
-typeof(costArray)
-str(costArray)
 costArray <- toJSON(costArray)
 
 sizeArray <- fires$ESTIMATEDTOTALACRES
