@@ -32,204 +32,218 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 	<meta charset="UTF-8">
-    <title>Alaska Fire 2017</title>
+  <title>Alaska Fire 2017</title>
 
 
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Roboto:300,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Roboto:300,700i,900,900i" rel="stylesheet">
 
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
-   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
-   crossorigin=""/>
- 
-
-	<style type="text/css">
+  integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+  crossorigin=""/>
 
 
+  <style type="text/css">
 
-	body {
-		background-color: ##f7f7f7;
 
-	}
 
-	.inline {
+   body {
+    background-color: ##f7f7f7;
 
-font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	color: #000000;
-  padding: 0% 20% 0% 20%;
-  margin:auto;
-  animation: fadeIn 4.0s ease forwards;
-  font-size: 1.4em;
+  }
 
-@keyframes fadeIn
-  to { 
+  .top {
+    width: 100%;
+    color: red;
+display:inline-block;
+
+  }
+  .inline {
+
+    width: 50%;
+    float: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #000000;
+    padding: 0% 5% 0% 5%;
+    
+    animation: fadeIn 4.0s ease forwards;
+    font-size: 1.4em;
+    line-height: 95%;
+
+    @keyframes fadeIn
+    to { 
      opacity: 1; }
 
 
 
-	}
+   }
 
-  .inlineEmph {
+   .inlineEmph {
     font-family: "Roboto"
     font-weight: bold;
     font-weight: 900;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-color: #000000;
   }
 
-	.disclaimer {
-	 
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 400;
-	font-style: italic;
-	padding: 0% 25% 0% 25%;
-	}
+  .disclaimer {
 
-h1{
+   font-family: 'Open Sans', sans-serif;
+   font-weight: 400;
+   font-style: italic;
+   padding: 0% 25% 0% 25%;
+ }
 
-font-family: 'Roboto', sans-serif;
-font-weight: 900;
-font-size: 5em;
-margin:auto;
-text-align: center;
+ h1{
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 5em;
+  margin:auto;
+  text-align: center;
 }
 
-	#maps {
+#maps {
 
-font-family: 'Roboto', sans-serif;
-font-weight: 900;
-font-size: 3em;
-width: 90%;
-margin:auto;
-text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 3em;
+  width: 90%;
+  margin:auto;
+  text-align: center;
 
-	}
+}
 
-   	#map1 {
-   		height: 500px;
-   		max-width: 90%;
-   		padding: 10px 10px 50px	50px;
-	display: block;
-	margin: auto;
-	margin-bottom: 50px;
-    box-shadow: 3px 3px 10px #d8d8d8;
-   	}
-   	 	#map2 {
-   		height: 500px;
-   		max-width: 90%;
-   		padding: 10px 10px 50px	50px;
-   		display: block;
-   		margin: auto;
-	margin-bottom: 50px;
+#map1 {
+ height: 500px;
+ max-width: 90%;
+ padding: 10px 10px 50px	50px;
+ display: block;
+ margin: auto;
+ margin-bottom: 50px;
+ box-shadow: 3px 3px 10px #d8d8d8;
+}
+#map2 {
+ height: 500px;
+ max-width: 90%;
+ padding: 10px 10px 50px	50px;
+ display: block;
+ margin: auto;
+ margin-bottom: 50px;
 
-   	}
+}
 
-   	#map3{
-height: 500px;
-   		width: 90%;
-   		padding: 10px 10px 50px	50px;
-   			display: block;
-margin: auto;
-	margin-bottom: 50px;
+#map3{
+  height: 500px;
+  width: 90%;
+  padding: 10px 10px 50px	50px;
+  display: block;
+  margin: auto;
+  margin-bottom: 50px;
 
-   	}
+}
 
-   	#map4{
-height: 500px;
-   		max-width: 90%;
-   		padding: 10px 10px 50px	50px;
-	display: block;
-	margin: auto;
-		margin-bottom: 50px;
+#map4{
+  height: 500px;
+  max-width: 90%;
+  padding: 10px 10px 50px	50px;
+  display: block;
+  margin: auto;
+  margin-bottom: 50px;
 
-   	}
+}
 
-    #headline {
-      padding: 3% 0% 3% 0%;
+#headline {
+  padding: 3% 0% 3% 0%;
 
-    }
+}
 
-    .popUp {
+.popUp {
 
-      font-size: 1.5em;
+  font-size: 1.5em;
 
-    }
-   	</style>
+}
+</style>
 </head>
 <body>
 
-<h1 id="headline"> Alaska Fire Update 2017</h1>
-	<div class="inline">
-There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> acres have burned.
-
-The largest fire is  <strong><span class="inlineEmph" id="largestfireName"></span></strong></strong> , burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>
-
-The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost $ <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
-<br><br>
-
-This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
+  <h1 id="headline"> Alaska Fire Update 2017</h1>
+  <div class="top">
 
 
-In total, fires have cost an estimated  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
-This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>. <br><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website.</a> <br>
-	</div> 
+    <div class="inline">
+      There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> acres have burned.
 
-  <div>
-	<p class = "disclaimer">  </p>
+      The largest fire is  <strong><span class="inlineEmph" id="largestfireName"></span></strong></strong> , burning  <span class="inlineEmph" id="largestFireNumber"></span> acres. <br><br>
 
-<div id= "maps">
+      The most expensive fire is <span class="inlineEmph" id="mostExpensiveName"></span>, estimated to cost $ <span class="inlineEmph" id="mostExpensiveNumber"></span>. 
+      <br><br>
 
-Current Fire Locations
-  <div id='map2'></div>
-
-  Current Fire Perimeters
-  <div id='map1'></div>
-
-Recent Lightning Detected 
-  <div id='map3'></div>
-Recent Heat Detected by MODIS Satellite
-  <div id='map4'></div>
-</div>
-
-<h2> dash</h2>
+      This fire season, <span class="inlineEmph" id="lightningFiresNumber"></span> were started by lightning, <span class="inlineEmph" id="humanFiresNumber"></span> were human caused. 
 
 
-    <div id="fireHistoryDiv" style="width: 80%;margin:auto; height:400px;"></div>
-  
-      <div id="donutCount" style="width: 30%; height:600px;"></div>
+      In total, fires have cost an estimated  $<span class="inlineEmph" id="totalCost"></span>.<br><br>
+      This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>. <br><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website.</a>
+    </div> 
 
-  
-   <div id="myDiv" style="width: 80%; margin:auto;"></div>
+      <div id="donutCount" style="width: 40%; float: right"></div>
 
-    <div id="costDiv" style="width:80%; margin:auto; "></div>
-  
-    <div id="historyDiv" style="width:50%; margin:auto; "></div>
+  </div>
+
+  <p class = "disclaimer">  </p>
+
+  <div id= "maps">
+
+    Current Fire Locations
+    <div id='map2'></div>
+
+    Current Fire Perimeters
+    <div id='map1'></div>
+
+    Recent Lightning Detected 
+    <div id='map3'></div>
+    Recent Heat Detected by MODIS Satellite
+    <div id='map4'></div>
+  </div>
+
+  <h2> dash</h2>
 
 
-
-<div class = "disclaimer"><br>
-	Disclaimer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
-
-</div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-
-
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
-  <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
-  <!--<script src="https://cdn.rawgit.com/OpenGov/Leaflet.bubble/gh-pages/dist/leaflet-bubble.js>"></script> -->
+  <div id="fireHistoryDiv" style="width: 80%;margin:auto; height:400px;"></div>
   
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+  
+  <div id="myDiv" style="width: 80%; margin:auto;"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
+  <div id="costDiv" style="width:80%; margin:auto; "></div>
+  
+  <div id="historyDiv" style="width:50%; margin:auto; "></div>
 
-  <script src="leaflet-providers.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+
+  <div class = "disclaimer"><br>
+   Disclaimer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
+
+ </div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+
+
+ <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+ <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+ <!--<script src="https://cdn.rawgit.com/OpenGov/Leaflet.bubble/gh-pages/dist/leaflet-bubble.js>"></script> -->
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script> 
+
+ <script src="leaflet-providers.js"></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
 
 
  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -242,14 +256,14 @@ Recent Heat Detected by MODIS Satellite
 
  <script src="https://rawgit.com/Leaflet/Leaflet.heat/gh-pages/dist/leaflet-heat.js"></script>
 
-<!-- Load Heatmap Feature Layer from CDN -->
-<script src="https://unpkg.com/esri-leaflet-heatmap@2.0.0"></script>
-<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.standalone.js'></script>
-<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+ <!-- Load Heatmap Feature Layer from CDN -->
+ <script src="https://unpkg.com/esri-leaflet-heatmap@2.0.0"></script>
+ <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.standalone.js'></script>
+ <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
 
 
 
-<script type="text/javascript">
+ <script type="text/javascript">
 
 // RT90 with map's pixel origin at RT90 coordinate (0, 0)
 
@@ -261,87 +275,87 @@ Recent Heat Detected by MODIS Satellite
 var urlJSON = "https://rawgit.com/benmatheson/fire/master/exportJSON.JSON";
 $.getJSON(urlJSON, function(data){
   var parsedData = data;
-  	console.log(parsedData);  
-	document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('totalCost').innerHTML = parsedData[0].totalCost.toLocaleString(undefined,{ minimumFractionDigits: 2 });
-	document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
-	document.getElementById('mostExpensiveName').innerHTML = parsedData[0].mostExpensiveName;
-	document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
+  console.log(parsedData);  
+  document.getElementById('totalAcerage').innerHTML = parsedData[0].totalAcerage.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+  document.getElementById('lightningFiresNumber').innerHTML = parsedData[0].lightningFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+  document.getElementById('humanFiresNumber').innerHTML = parsedData[0].humanFiresNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+  document.getElementById('totalCost').innerHTML = parsedData[0].totalCost.toLocaleString(undefined,{ minimumFractionDigits: 2 });
+  document.getElementById('mostExpensiveNumber').innerHTML = parsedData[0].mostExpensiveNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+  document.getElementById('largestFireNumber').innerHTML = parsedData[0].largestFireNumber.toLocaleString(undefined,{ minimumFractionDigits: 0 });
+  document.getElementById('mostExpensiveName').innerHTML = parsedData[0].mostExpensiveName;
+  document.getElementById('largestfireName').innerHTML = parsedData[0].largestfireName;
   document.getElementById('systemTime').innerHTML = parsedData[0].systemTime;
   document.getElementById('currentCount').innerHTML = parsedData[0].currentCount.toLocaleString(undefined,{ minimumFractionDigits: 0 });
 
-var humanFiresNumber = parsedData[0].humanFiresNumber;
-var lightningFiresNumber =parsedData[0].lightningFiresNumber;
+  var humanFiresNumber = parsedData[0].humanFiresNumber;
+  var lightningFiresNumber =parsedData[0].lightningFiresNumber;
 
 
-var costArray = JSON.parse(parsedData[0].costArray);
+  var costArray = JSON.parse(parsedData[0].costArray);
   var sizeArray = JSON.parse(parsedData[0].sizeArray);
   var nameArray = JSON.parse(parsedData[0].nameArray);
   var discoverArray = JSON.parse(parsedData[0].discoverArray);
 
-var fireHistoryDates = JSON.parse(parsedData[0].fireHistoryDates);
-var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
-var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
-var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
-var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
-var fireHistory2011Acres = JSON.parse(parsedData[0].fireHistory2011Acres);
-var fireHistory2012Acres = JSON.parse(parsedData[0].fireHistory2012Acres);
-var fireHistory2013Acres = JSON.parse(parsedData[0].fireHistory2013Acres);
-var fireHistory2014Acres = JSON.parse(parsedData[0].fireHistory2014Acres);
-var fireHistory2015Acres = JSON.parse(parsedData[0].fireHistory2015Acres);
-var fireHistory2016Acres = JSON.parse(parsedData[0].fireHistory2016Acres);
-var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
+  var fireHistoryDates = JSON.parse(parsedData[0].fireHistoryDates);
+  var fireHistoryHumanAcres =JSON.parse(parsedData[0].fireHistoryHumanAcres);
+  var fireHistoryHumanFires = JSON.parse(parsedData[0].fireHistoryHumanFires);
+  var fireHistoryLightningAcres = JSON.parse(parsedData[0].fireHistoryLightningAcres);
+  var fireHistoryLightningFires = JSON.parse(parsedData[0].fireHistoryLightningFires);
+  var fireHistory2011Acres = JSON.parse(parsedData[0].fireHistory2011Acres);
+  var fireHistory2012Acres = JSON.parse(parsedData[0].fireHistory2012Acres);
+  var fireHistory2013Acres = JSON.parse(parsedData[0].fireHistory2013Acres);
+  var fireHistory2014Acres = JSON.parse(parsedData[0].fireHistory2014Acres);
+  var fireHistory2015Acres = JSON.parse(parsedData[0].fireHistory2015Acres);
+  var fireHistory2016Acres = JSON.parse(parsedData[0].fireHistory2016Acres);
+  var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
 
 
 
-var histoData = [
+  var histoData = [
   {
     x: sizeArray,
     type: 'histogram',
-  marker: {
-    color: '#6baed6',
-  },
+    marker: {
+      color: '#6baed6',
+    },
   }
-];
+  ];
 
 
 
 
 
-var costData = [
-{
+  var costData = [
+  {
 
-  x: costArray,
-  type: 'histogram',
-  marker: {
-    color: 'red',
-  },
-}
+    x: costArray,
+    type: 'histogram',
+    marker: {
+      color: 'red',
+    },
+  }
 
-];
+  ];
 
 
-var trace1 = {
-  x: fireHistoryDates,
-  y: fireHistoryHumanAcres,
-  mode:'lines+markers',
-  name: 'Human Caused Fires',   
-  text: "Acres",
-};
+  var trace1 = {
+    x: fireHistoryDates,
+    y: fireHistoryHumanAcres,
+    mode:'lines+markers',
+    name: 'Human Caused Fires',   
+    text: "Acres",
+  };
 
-var trace2 = {
-  x: fireHistoryDates,
-  y: fireHistoryLightningAcres,
-  mode: 'lines+markers',
-   name: 'Lightning Fires',
-     text: "Acres",
-};
-var dataHistory = [trace1, trace2];
+  var trace2 = {
+    x: fireHistoryDates,
+    y: fireHistoryLightningAcres,
+    mode: 'lines+markers',
+    name: 'Lightning Fires',
+    text: "Acres",
+  };
+  var dataHistory = [trace1, trace2];
 
-var lay = {
+  var lay = {
    yaxis: {
      title: 'Acres Burned',
      size: 28,
@@ -363,144 +377,144 @@ var history2011 = {
   name: '2011',   
   text: "Acres",
   marker: {
-  color: '#f0f9e8',
+    color: '#f0f9e8',
     opacity: .5}
 
 
-};
-var history2012 = {
-  x: fireHistoryDates,
-  y: fireHistory2012Acres,
-  mode:'lines+markers',
-  name: '2012',   
-  text: "Acres",
-  marker: {
-  color: '#ccebc5',
-    opacity: .5}
-};
+  };
+  var history2012 = {
+    x: fireHistoryDates,
+    y: fireHistory2012Acres,
+    mode:'lines+markers',
+    name: '2012',   
+    text: "Acres",
+    marker: {
+      color: '#ccebc5',
+      opacity: .5}
+    };
 
 
-var history2013 = {
-  x: fireHistoryDates,
-  y: fireHistory2013Acres,
-  mode:'lines+markers',
-  name: '2013',   
-  text: "Acres",
-  marker: {
-  color: '#a8ddb5',
-    opacity: .5}
-};
+    var history2013 = {
+      x: fireHistoryDates,
+      y: fireHistory2013Acres,
+      mode:'lines+markers',
+      name: '2013',   
+      text: "Acres",
+      marker: {
+        color: '#a8ddb5',
+        opacity: .5}
+      };
 
 
-var history2014 = {
-  x: fireHistoryDates,
-  y: fireHistory2014Acres,
-  mode: 'lines+markers',
-   name: '2014',
-     text: "Acres",
-     marker: {
-  color: '#7bccc4',
-    opacity: .4}
-};
+      var history2014 = {
+        x: fireHistoryDates,
+        y: fireHistory2014Acres,
+        mode: 'lines+markers',
+        name: '2014',
+        text: "Acres",
+        marker: {
+          color: '#7bccc4',
+          opacity: .4}
+        };
 
 
-var history2015 = {
-  x: fireHistoryDates,
-  y: fireHistory2015Acres,
-  mode: 'lines+markers',
-   name: '2015',
-     text: "Acres",
-     marker: {
-  color: '#43a2ca',
-    opacity: .4}
-};
+        var history2015 = {
+          x: fireHistoryDates,
+          y: fireHistory2015Acres,
+          mode: 'lines+markers',
+          name: '2015',
+          text: "Acres",
+          marker: {
+            color: '#43a2ca',
+            opacity: .4}
+          };
 
 
-var history2016 = {
-  x: fireHistoryDates,
-  y: fireHistory2016Acres,
-  mode: 'lines+markers',
-   name: '2016',
-     text: "Acres",
-     marker: {
-  color: '#0868ac',
-    opacity: .4}
-};
-var history2017 = {
-  x: fireHistoryDates,
-  y: fireHistory2017Acres,
-  mode: 'lines+markers',
-   name: '2017',
-     text: "Acres",
-     marker: {
-  color: '#f03b20',
-    opacity: .99}
-};
+          var history2016 = {
+            x: fireHistoryDates,
+            y: fireHistory2016Acres,
+            mode: 'lines+markers',
+            name: '2016',
+            text: "Acres",
+            marker: {
+              color: '#0868ac',
+              opacity: .4}
+            };
+            var history2017 = {
+              x: fireHistoryDates,
+              y: fireHistory2017Acres,
+              mode: 'lines+markers',
+              name: '2017',
+              text: "Acres",
+              marker: {
+                color: '#f03b20',
+                opacity: .99}
+              };
 
-var historyData = [history2011, history2012, history2013, history2014, history2015, history2016, history2017];
-
-
-var layout = {
-   yaxis: {
-     title: 'Acres Burned',
-     size: 28,
-     titlefont: {
-       family: 'Roboto, sans-serif',
-       size: 23,
-       color: 'black'
-     }
-   },
-
- xaxis: {
-     title: 'Date',
-     size: 28,
-     titlefont: {
-       family: 'Roboto, sans-serif',
-       size: 23,
-       color: 'black',
-       range: ["2016-06-01", "2016-06-22"]
-     }
-   }
-
- }
-
-var donutCountData = [{
-  values: [humanFiresNumber, lightningFiresNumber],
-  labels: ['human', 'lightning' ],
-  marker: {color: ['#fdae61', "#abd9e9"]},
-  name: 'Fires',
-  hoverinfo: 'label+value',
-  textinfo:'label+value+',
-  hole: .6,
-  type: 'pie'
-}];
+              var historyData = [history2011, history2012, history2013, history2014, history2015, history2016, history2017];
 
 
+              var layout = {
+               yaxis: {
+                 title: 'Acres Burned',
+                 size: 28,
+                 titlefont: {
+                   family: 'Roboto, sans-serif',
+                   size: 23,
+                   color: 'black'
+                 }
+               },
 
+               xaxis: {
+                 title: 'Date',
+                 size: 28,
+                 titlefont: {
+                   family: 'Roboto, sans-serif',
+                   size: 23,
+                   color: 'black',
+                   range: ["2016-06-01", "2016-06-22"]
+                 }
+               }
 
+             }
 
-Plotly.newPlot('myDiv', histoData);
-
-Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
-
-
-Plotly.newPlot('costDiv', costData);
-Plotly.newPlot('historyDiv', historyData, layout);
-Plotly.newPlot('donutCount', donutCountData);
-
-
-
-});
+             var donutCountData = [{
+              values: [humanFiresNumber, lightningFiresNumber],
+              labels: ['human', 'lightning' ],
+              marker: {color: ['#fdae61', "#abd9e9"]},
+              name: 'Fires',
+              hoverinfo: 'label+value',
+              textinfo:'label+value+',
+              hole: .6,
+              type: 'pie'
+            }];
 
 
 
 
 
-var map1 = L.map('map1').setView([64.1781, -149.9003], 5);
-var map2 = L.map('map2').setView([64.1781, -149.9003], 5);
+            Plotly.newPlot('myDiv', histoData);
 
-var map3 = L.map('map3').setView([64.1781, -149.9003],4);
-var map4 = L.map('map4').setView([64.1781, -149.9003], 5);
+            Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
+
+
+            Plotly.newPlot('costDiv', costData);
+            Plotly.newPlot('historyDiv', historyData, layout);
+            Plotly.newPlot('donutCount', donutCountData);
+
+
+
+          });
+
+
+
+
+
+var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
+var map2 = L.map('map2', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
+
+var map3 = L.map('map3',{scrollWheelZoom: false}).setView([64.1781, -149.9003],4);
+var map4 = L.map('map4', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
 
 
 L.mapbox.accessToken = 'pk.eyJ1IjoiYmVubWF0aGVzb24iLCJhIjoiY2lmZDhyZXVxNTI5eHNtbHgyOTYwbHJtMyJ9.Ch8JQXvunpUrv6tGpeJMCA';
@@ -527,37 +541,37 @@ var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Te
 //var geojsonLayer = L.GeoJSON.AJAX("https://rawgit.com/benmatheson/fire/master/fires.geojson").addTo('map4');
 
 var active = L.esri.featureLayer({
-   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/",
-   style: function (feature) {
-      if(feature.properties.ACRES < 10000){
-        return {color: 'blue', weight: .5 };
-      } else if(feature.properties.ACRES >= 10000 && feature.properties.ACRES <= 15000){
-        return { color: 'red', weight: 0.5 };
-      } else {
-        return { color: 'green', weight: 0.5 };
-      }
-    }
-    }).addTo(map1);
+ url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/",
+ style: function (feature) {
+  if(feature.properties.ACRES < 10000){
+    return {color: 'blue', weight: .5 };
+  } else if(feature.properties.ACRES >= 10000 && feature.properties.ACRES <= 15000){
+    return { color: 'red', weight: 0.5 };
+  } else {
+    return { color: 'green', weight: 0.5 };
+  }
+}
+}).addTo(map1);
 
 active.bindPopup(function (layer) {
-    return L.Util.template('<p>Fire Name: {NAME}</p>', layer.feature.properties);
+  return L.Util.template('<p>Fire Name: {NAME}</p>', layer.feature.properties);
 
-  });
+});
 
 
 
 var testIcon = L.icon({
-      iconUrl: 'http://www.bfvwz.steiermark.at/portaldata/1/resources/_intern/img/slider/reddot.png'
-    });
+  iconUrl: 'http://www.bfvwz.steiermark.at/portaldata/1/resources/_intern/img/slider/reddot.png'
+});
 
 var points = L.esri.featureLayer({
-   url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
-pointToLayer: function (geojson, latlng) {
-      return L.marker(latlng, {
-        icon: testIcon
-      });
-    },
-  }).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map2);
+ url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires/FeatureServer/0/",
+ pointToLayer: function (geojson, latlng) {
+  return L.marker(latlng, {
+    icon: testIcon
+  });
+},
+}).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map2);
 
 
 
@@ -566,9 +580,9 @@ pointToLayer: function (geojson, latlng) {
 
 
 
-points.bindPopup(function (layer) {
-    return L.Util.template('<div class="popUp"> <p><strong>Fire Name: </strong>{NAME}<br><strong>Cause:</strong> {GENERALCAUSE} <br><strong>Size:</strong> {ESTIMATEDTOTALACRES} acres<br> <strong>Management Option:</strong> {MGMTOPTIONID}<br><strong><a href="https://fire.ak.blm.gov/">More information</a></strong></p></div>', layer.feature.properties);
-  });
+     points.bindPopup(function (layer) {
+      return L.Util.template('<div class="popUp"> <p><strong>Fire Name: </strong>{NAME}<br><strong>Cause:</strong> {GENERALCAUSE} <br><strong>Size:</strong> {ESTIMATEDTOTALACRES} acres<br> <strong>Management Option:</strong> {MGMTOPTIONID}<br><strong><a href="https://fire.ak.blm.gov/">More information</a></strong></p></div>', layer.feature.properties);
+    });
 
 
 //var lightning = L.esri.featureLayer({
@@ -576,24 +590,24 @@ points.bindPopup(function (layer) {
 //}).addTo(map3);
 
 
- L.esri.Heat.featureLayer({
-    url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
-    radius:9
+L.esri.Heat.featureLayer({
+  url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
+  radius:9
 
 
-  }).addTo(map3);
+}).addTo(map3);
 
 
 
-  var heat = L.esri.featureLayer({
-    url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/',
+var heat = L.esri.featureLayer({
+  url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/',
 
-    pointToLayer: function (geojson, latlng) {
-      return L.marker(latlng, {
-        icon: testIcon
-      });
-    },
-  }).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map4);
+  pointToLayer: function (geojson, latlng) {
+    return L.marker(latlng, {
+      icon: testIcon
+    });
+  },
+}).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map4);
 
 
 //L.esri.imageMapLayer({
@@ -630,7 +644,7 @@ points.bindPopup(function (layer) {
     //  }).addTo(map1);
 
 
-</script>
+  </script>
 
 </body>
 
