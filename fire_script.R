@@ -131,7 +131,8 @@ sysDate <- paste0(Sys.Date())
 costArray <-fires$ESTIMATEDTOTALCOST
 costArray <- toJSON(costArray)
 
-sizeArray <- fires$ESTIMATEDTOTALACRES
+sizeArray <- filter(fires, ESTIMATEDTOTALACRES != 0)
+sizeArray <- sizeArray$ESTIMATEDTOTALACRES
 sizeArray <-toJSON(sizeArray)
 sizeArray <- gsub('"',"",sizeArray)
 
