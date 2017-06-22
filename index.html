@@ -57,21 +57,26 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
   .top {
     width: 100%;
     color: red;
-display:inline-block;
+display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+    -webkit-align-items: center;
+   align-items: center;
 
   }
   .inline {
 
-    width: 50%;
+    width: 40%;
     float: left;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     color: #000000;
-    padding: 0% 5% 0% 5%;
+    padding: 0% 2% 0% 2%;
     
     animation: fadeIn 4.0s ease forwards;
-    font-size: 1.4em;
-    line-height: 95%;
+    font-size: 1.3em;
+    line-height: 98%;
 
     @keyframes fadeIn
     to { 
@@ -172,8 +177,6 @@ display:inline-block;
 
   <h1 id="headline"> Alaska Fire Update 2017</h1>
   <div class="top">
-
-
     <div class="inline">
       There are are currently <span class="inlineEmph" id="currentCount"></span> fires burning in Alaska. In total, <span class="inlineEmph" id="totalAcerage"></span> acres have burned.
 
@@ -189,15 +192,16 @@ display:inline-block;
       This automated summary is based of data downloaded at <span class="inlineEmph" id="systemTime"></span>. <br><br>For original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website.</a>
     </div> 
 
-      <div id="donutCount" style="width: 40%; float: right"></div>
-
+      <div id="donutCount" style="width: 30%; float: right"></div>
+<div id="fireHistoryDiv" style="width: 50%;margin:auto; height:400px;"></div>
+  
   </div>
 
   <p class = "disclaimer">  </p>
 
   <div id= "maps">
 
-    Current Fire Locations
+    2017 Fire Locations
     <div id='map2'></div>
 
     Current Fire Perimeters
@@ -212,13 +216,12 @@ display:inline-block;
   <h2> dash</h2>
 
 
-  <div id="fireHistoryDiv" style="width: 80%;margin:auto; height:400px;"></div>
   
 
   
   <div id="myDiv" style="width: 80%; margin:auto;"></div>
 
-  <div id="costDiv" style="width:80%; margin:auto; "></div>
+  <!--<div id="costDiv" style="width:80%; margin:auto; "></div>-->
   
   <div id="historyDiv" style="width:50%; margin:auto; "></div>
 
@@ -493,16 +496,14 @@ var history2011 = {
 
 
 
-            Plotly.newPlot('myDiv', histoData);
+            Plotly.newPlot('myDiv', histoData, {displayModeBar: false});
 
-            Plotly.newPlot('fireHistoryDiv', dataHistory, lay);
-
-
-            Plotly.newPlot('costDiv', costData);
-            Plotly.newPlot('historyDiv', historyData, layout);
-            Plotly.newPlot('donutCount', donutCountData);
+            Plotly.newPlot('fireHistoryDiv', dataHistory, lay, {displayModeBar: false});
 
 
+            //Plotly.newPlot('costDiv', costData);
+            Plotly.newPlot('historyDiv', historyData, layout, {displayModeBar: false});
+            Plotly.newPlot('donutCount', donutCountData, {displayModeBar: false});
 
           });
 
@@ -510,8 +511,8 @@ var history2011 = {
 
 
 
-var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
-var map2 = L.map('map2', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
+var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1181, -151.5003], 6);
+var map2 = L.map('map2', {scrollWheelZoom: false}).setView([64.1881, -149.9003], 5);
 
 var map3 = L.map('map3',{scrollWheelZoom: false}).setView([64.1781, -149.9003],4);
 var map4 = L.map('map4', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
@@ -581,6 +582,11 @@ var points = L.esri.featureLayer({
 
 
      points.bindPopup(function (layer) {
+      return L.Util.template('<div class="popUp"> <p><strong>Fire Name: </strong>{NAME}<br><strong>Cause:</strong> {GENERALCAUSE} <br><strong>Size:</strong> {ESTIMATEDTOTALACRES} acres<br> <strong>Management Option:</strong> {MGMTOPTIONID}<br><strong><a href="https://fire.ak.blm.gov/">More information</a></strong></p></div>', layer.feature.properties);
+    })
+
+
+points.bindTooltip(function (layer) {
       return L.Util.template('<div class="popUp"> <p><strong>Fire Name: </strong>{NAME}<br><strong>Cause:</strong> {GENERALCAUSE} <br><strong>Size:</strong> {ESTIMATEDTOTALACRES} acres<br> <strong>Management Option:</strong> {MGMTOPTIONID}<br><strong><a href="https://fire.ak.blm.gov/">More information</a></strong></p></div>', layer.feature.properties);
     });
 
