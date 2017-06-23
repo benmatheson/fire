@@ -54,6 +54,34 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
   }
 
+  ul, li {
+    list-style-type: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #000000;
+}
+
+.list{
+padding: 10px;
+
+}
+
+.belowTop {
+    width: 100%;
+     font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+  
+display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+    -webkit-align-items: center;
+   align-items: center;
+
+}
+
+
+
   .top {
     width: 100%;
     color: red;
@@ -63,6 +91,8 @@ display: -webkit-flex;
    flex-direction: row;
     -webkit-align-items: center;
    align-items: center;
+
+
 
   }
   .inline {
@@ -213,8 +243,6 @@ display: -webkit-flex;
     <div id='map4'></div>
   </div>
 
-  <h2> dash</h2>
-
 
   
 
@@ -222,10 +250,17 @@ display: -webkit-flex;
   <div id="myDiv" style="width: 80%; margin:auto;"></div>
 
   <!--<div id="costDiv" style="width:80%; margin:auto; "></div>-->
+
+  <div class = "belowTop">
   
   <div id="historyDiv" style="width:50%; margin:auto; "></div>
 
 
+<div class = "list" id="largestFireListName"> <h3> Largest Fires</h3></div>
+<div class = "list" id="largestFiresListNumber"><h3 style="display: inline-block;"> Acres</h3>
+</div>
+
+</div>
 
   <div class = "disclaimer"><br>
    Disclaimer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
@@ -311,6 +346,30 @@ $.getJSON(urlJSON, function(data){
   var fireHistory2015Acres = JSON.parse(parsedData[0].fireHistory2015Acres);
   var fireHistory2016Acres = JSON.parse(parsedData[0].fireHistory2016Acres);
   var fireHistory2017Acres = JSON.parse(parsedData[0].fireHistory2017Acres);
+var largestFiresNumbers = JSON.parse(parsedData[0].largestFiresNumbers);
+  var largestFiresNames = JSON.parse(parsedData[0].largestFiresNames);
+
+
+var list1 = document.getElementById('largestFireListName');
+var list2 = document.getElementById('largestFiresListNumber');
+
+
+function addText (arr, list) {
+for (i=0; i<arr.length; i++) {
+
+var text = arr[i];
+var listItem = document.createElement("li");
+listItem.textContent = text;
+list.appendChild(listItem);
+  }
+}
+addText(largestFiresNames, list1);
+addText(largestFiresNumbers, list2);
+
+
+
+
+
 
 
 
