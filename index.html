@@ -61,8 +61,18 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
     color: #000000;
 }
 
+#largestFireListName {
+padding-left: 5%;
+
+}
+
+.left {
+  text-align: left;
+
+}
+
 .list{
-padding: 10px;
+padding: 14px;
 
 }
 
@@ -70,13 +80,15 @@ padding: 10px;
     width: 100%;
      font-family: 'Roboto', sans-serif;
     font-weight: 900;
-  
 display: -webkit-flex;
    display: flex;
    -webkit-flex-direction: row;
    flex-direction: row;
     -webkit-align-items: center;
    align-items: center;
+   -webkit-justify-content: flex-start;
+   justify-content: flex-start;
+
 
 }
 
@@ -136,7 +148,7 @@ display: -webkit-flex;
 
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
-  font-size: 5em;
+  font-size: 3em;
   margin:auto;
   text-align: center;
 }
@@ -145,7 +157,7 @@ display: -webkit-flex;
 
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
-  font-size: 3em;
+  font-size: 2em;
   width: 90%;
   margin:auto;
   text-align: center;
@@ -162,8 +174,9 @@ display: -webkit-flex;
  box-shadow: 3px 3px 10px #d8d8d8;
 }
 #map2 {
- height: 500px;
- max-width: 90%;
+
+ max-width: 98%;
+  height: 600px;
  padding: 10px 10px 50px	50px;
  display: block;
  margin: auto;
@@ -223,7 +236,7 @@ display: -webkit-flex;
     </div> 
 
       <div id="donutCount" style="width: 30%; float: right"></div>
-<div id="fireHistoryDiv" style="width: 50%;margin:auto; height:400px;"></div>
+<div id="fireHistoryDiv" style="width: 50%;margin:auto;"></div>
   
   </div>
 
@@ -233,6 +246,17 @@ display: -webkit-flex;
 
     2017 Fire Locations
     <div id='map2'></div>
+
+    <div class = "belowTop">
+  
+  <div id="historyDiv" style="width:50%; "></div>
+
+
+<div class = "list left" id="largestFireListName"> <h3> Largest Fires</h3></div>
+<div class = "list" id="largestFiresListNumber"><h3 style="display: inline-block;"> Acres</h3>
+</div>
+
+</div>
 
     Current Fire Perimeters
     <div id='map1'></div>
@@ -251,16 +275,7 @@ display: -webkit-flex;
 
   <!--<div id="costDiv" style="width:80%; margin:auto; "></div>-->
 
-  <div class = "belowTop">
   
-  <div id="historyDiv" style="width:50%; margin:auto; "></div>
-
-
-<div class = "list" id="largestFireListName"> <h3> Largest Fires</h3></div>
-<div class = "list" id="largestFiresListNumber"><h3 style="display: inline-block;"> Acres</h3>
-</div>
-
-</div>
 
   <div class = "disclaimer"><br>
    Disclaimer: this is an experimental project by Ben Matheson using publically-available data from the Alaska Interagency Coordination Center. The page checks for new data hourly, but for original data, visit the <a href="https://fire.ak.blm.gov/"> AICC website</a> or <a href="https://akfireinfo.com/">Alaska Fire Info</a>. For methedology and code, visit the <a href="https://github.com/benmatheson/fire">github repo</a>. It was built using R, Leaflet.
