@@ -38,6 +38,13 @@ slice2 <- substr(fireHistory$SitReportDate, 5,6)
 slice3 <- substr(fireHistory$SitReportDate, 7,8)
 fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-") 
 
+
+fires <- mutate(fires, duration = DISCOVERYDATETIME - OUTDATE )  
+
+fires$duration
+
+
+
 #fixed the bad thign???***here 
 fireHistory <- filter(fireHistory, Month >5)
 fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitReportDate)
