@@ -15,7 +15,7 @@ library(lubridate)
 #https://recology.info/2015/04/geojson-io/
 #crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
 getwd()
-setwd("fire")
+#setwd("fire")
 
 
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
@@ -53,6 +53,8 @@ fireHistory$SitReportDate <- gsub("2107-06-12","2017-06-12", fireHistory$SitRepo
 fireHistory$jd <- yday(fireHistory$SitReportDate)
 
 fireHistory2017 <- filter(fireHistory, FireSeason ==2017) %>% arrange(SitReportDate)
+
+fireHistory2017
 
 
 fireHistoryHumanAcres <- toJSON(fireHistory2017$HumanAcres)
