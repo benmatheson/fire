@@ -63,7 +63,8 @@ https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2
 
 #largestFireListName {
 padding-left: 5%;
-font-size: .8em;
+font-size: .7em;
+text-anchor: l
 
 }
 
@@ -380,6 +381,7 @@ function addText (arr, list) {
 for (i=0; i<arr.length; i++) {
 
 var text = arr[i];
+//var numb = num[i];
 var listItem = document.createElement("li");
 listItem.textContent = text;
 list.appendChild(listItem);
