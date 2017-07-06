@@ -64,7 +64,7 @@ fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
 
 #**JD FIX?
-fireHistoryDates <- filter(fireHistory, jd >150 & jd<185 &FireSeason ==2016) %>% arrange((jd))
+fireHistoryDates <- filter(fireHistory, jd >150 & jd<195 &FireSeason ==2016) %>% arrange((jd))
 fireHistoryDates <- toJSON(fireHistoryDates$SitReportDate)
 
 #think this returns just the vector
