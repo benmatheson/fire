@@ -15,7 +15,7 @@ library(lubridate)
 #https://recology.info/2015/04/geojson-io/
 #crontab via this https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
 getwd()
-setwd("fire")
+#setwd("fire")
 
 
 fires <- download.file("https://fire.ak.blm.gov/content/aicc/sitreport/sit%20query.xlsx", "query.xlsx")
@@ -115,8 +115,13 @@ totalFires <- as.numeric(lightningFiresNumber + humanFiresNumber)
 mostExpensive <- filter(fires, ESTIMATEDTOTALCOST != 0)
 mostExpensive <- arrange(fires, desc(ESTIMATEDTOTALCOST))
 mostExpensive <- mostExpensive[1:10,]
-mostExpensiveNumber <- mostExpensive[1,18]
+mostExpensiveNumber <- mostExpensive[1,19]
+#this changed from 1,18
 mostExpensiveName <- mostExpensive[1,2]
+
+View(mostExpensive)
+mostExpensiveName
+mostExpensiveNumber
 
 largestFires <- filter(fires, ESTIMATEDTOTALACRES != 0)
 largestFires <- arrange(fires, desc(ESTIMATEDTOTALACRES))
