@@ -1,10 +1,11 @@
 [
   {
-    "systemTime": "2017-07-17 21:09:05",
+    "systemTime": "2017-07-17 21:19:00",
     "lightningFiresNumber": 133,
     "humanFiresNumber": 171,
     "totalAcerage": 505595.6,
     "totalCost": 8042448,
+    "mostExpensiveNumber": 1365052,
     "largestFireNumber": 84918.8,
     "mostExpensiveName": "Bell Creek",
     "largestfireName": "Campbell River",
