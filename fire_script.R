@@ -41,9 +41,6 @@ fireHistory$SitReportDate<- paste(slice1, slice2, slice3, sep="-")
 
 fires <- mutate(fires, duration = DISCOVERYDATETIME - OUTDATE )  
 
-fires$duration
-
-
 
 #fixed the bad thign???***here 
 fireHistory <- filter(fireHistory, Month >5)
@@ -64,7 +61,7 @@ fireHistoryLightningFires <- toJSON(fireHistory2017$LightningFires)
 
 
 #**JD FIX?
-fireHistoryDates <- filter(fireHistory, jd >150 & jd<215 &FireSeason ==2016) %>% arrange((jd))
+fireHistoryDates <- filter(fireHistory, jd >150 & jd<250 &FireSeason ==2016) %>% arrange((jd))
 fireHistoryDates <- toJSON(fireHistoryDates$SitReportDate)
 
 #think this returns just the vector
@@ -77,9 +74,6 @@ fireHistory2013Acres <- toJSON(filter(fireHistory, FireSeason == 2013, jd >150) 
 fireHistory2012Acres <- toJSON(filter(fireHistory, FireSeason == 2012, jd >150) %>% arrange((jd))%>% .$TotalAcres)
 fireHistory2011Acres <- toJSON(filter(fireHistory, FireSeason == 2011, jd >150) %>% arrange((jd))%>% .$TotalAcres)
 
-fireHistory2017Acres
-
-fireHistory2013Acres
 ####Parse the fire Dataframe#####
 
 #remove the problematic "{}" in the 
@@ -173,7 +167,7 @@ push_git <- paste0("git add --all && git commit -m '",
 
 system(push_git)
 
-download.file("https://rawgit.com/benmatheson/fire/master/exportJSON.JSON", "local_download.json")
+#download.file("https://rawgit.com/benmatheson/fire/master/exportJSON.JSON", "local_download.json")
 
 
 

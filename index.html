@@ -274,11 +274,11 @@ display: -webkit-flex;
     Current Fire Perimeters
     <div id='map1'></div>
 
-    Recent Lightning Detected 
+    <!--Recent Lightning Detected 
     <div id='map3'></div>
     Recent Heat Detected by MODIS Satellite
     <div id='map4'></div>
-  </div>
+  </div> -->
 
 
   
@@ -610,8 +610,8 @@ var history2011 = {
 var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1181, -151.5003], 6);
 var map2 = L.map('map2', {scrollWheelZoom: false}).setView([64.1881, -149.9003], 5);
 
-var map3 = L.map('map3',{scrollWheelZoom: false}).setView([64.1781, -149.9003],4);
-var map4 = L.map('map4', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
+//var map3 = L.map('map3',{scrollWheelZoom: false}).setView([64.1781, -149.9003],4);
+//var map4 = L.map('map4', {scrollWheelZoom: false}).setView([64.1781, -149.9003], 5);
 
 
 L.mapbox.accessToken = 'pk.eyJ1IjoiYmVubWF0aGVzb24iLCJhIjoiY2lmZDhyZXVxNTI5eHNtbHgyOTYwbHJtMyJ9.Ch8JQXvunpUrv6tGpeJMCA';
@@ -692,24 +692,24 @@ points.bindTooltip(function (layer) {
 //}).addTo(map3);
 
 
-L.esri.Heat.featureLayer({
-  url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
-  radius:9
+//L.esri.Heat.featureLayer({
+  //url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Lightning/FeatureServer/1/',
+  //radius:9
 
 
-}).addTo(map3);
+//}).addTo(map3);
 
 
 
-var heat = L.esri.featureLayer({
-  url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/',
+//var heat = L.esri.featureLayer({
+ // url: 'https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fire_Heat/FeatureServer/11/',
 
-  pointToLayer: function (geojson, latlng) {
-    return L.marker(latlng, {
-      icon: testIcon
-    });
-  },
-}).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map4);
+  //pointToLayer: function (geojson, latlng) {
+   // return L.marker(latlng, {
+   //   icon: testIcon
+  //  });
+ // },
+//}).setStyle( { opacity: 0.5, fillOpacity: 0.5 } ).addTo(map4);
 
 
 //L.esri.imageMapLayer({
