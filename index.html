@@ -271,10 +271,10 @@ display: -webkit-flex;
 
 </div>
 
-    Current Fire Perimeters
+     <!--Current Fire Perimeters
     <div id='map1'></div>
 
-    <!--Recent Lightning Detected 
+   Recent Lightning Detected 
     <div id='map3'></div>
     Recent Heat Detected by MODIS Satellite
     <div id='map4'></div>
@@ -607,7 +607,7 @@ var history2011 = {
 
 
 
-var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1181, -151.5003], 6);
+//var map1 = L.map('map1', {scrollWheelZoom: false}).setView([64.1181, -151.5003], 6);
 var map2 = L.map('map2', {scrollWheelZoom: false}).setView([64.1881, -149.9003], 5);
 
 //var map3 = L.map('map3',{scrollWheelZoom: false}).setView([64.1781, -149.9003],4);
@@ -636,7 +636,7 @@ var temp = "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/World/Te
 
 
 //var geojsonLayer = L.GeoJSON.AJAX("https://rawgit.com/benmatheson/fire/master/fires.geojson").addTo('map4');
-
+/*
 var active = L.esri.featureLayer({
  url: "https://fire.ak.blm.gov/arcgis/rest/services/MapAndFeatureServices/Fires_Perimeters/FeatureServer/1/",
  style: function (feature) {
@@ -654,6 +654,7 @@ active.bindPopup(function (layer) {
   return L.Util.template('<p>Fire Name: {NAME}</p>', layer.feature.properties);
 
 });
+*/
 
 
 
@@ -673,7 +674,7 @@ var points = L.esri.featureLayer({
 
 
  // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons16x16/application_delete.png'
-     }).addTo(map2);
+     //}).addTo(map2);
 
 
 
