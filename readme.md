@@ -3,12 +3,12 @@ An experimental fire data analysis and visualization using R, javascript, Leaftl
 
 ![fire1](http://benmatheson.github.io/images/fire_4.png)
 
-![fire2](http://benmatheson.github.io/images/fire_1.png)
-
-
-The fire_script.R file scrapes fire websites every hour (you must configure with a local cron job) and pareses the Excel and CSV data (fire_history.csv, query.xlsx) to output several data in a "exportJSON.JSON" file.
+The fire_script.R file scrapes fire websites every hour (you must configure with a local cron job) and pareses the Excel and CSV data (fire_history.csv, query.xlsx) to output several current and historic data points in a "exportJSON.JSON" file.
 
 Scripts within index.html format the JSON into the DOM and render Plot.ly charts.
+
+![fire2](http://benmatheson.github.io/images/fire_1.png)
+
 
 ESRI ArcGIS image services (only updated during the fire season) from the Alaska Fire Service are utilized in custom Leaflet maps. 
 
